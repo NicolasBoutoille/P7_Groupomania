@@ -12,7 +12,7 @@ exports.signUp = (req, res, next) => {
         };
         console.log(req.body);
         const sql = 'INSERT INTO users SET ?';
-        db.query(sql, user, function (err, result) {
+        db.query(sql, user, (err, result) =>{
             if (err) throw err;
             res.status(201).json({ message: 'Utilisateur créé !'});
         });
@@ -27,7 +27,7 @@ exports.login = (req, res, next) => {
     };
     const email = user.email;
     const sqlFind = 'SELECT * FROM users WHERE email = ?';
-    db.query(sqlFind, email, function (err, result) {
+    db.query(sqlFind, email, (err, result) =>{
         if (err) {
             return res.status(404).json({ error });
         }

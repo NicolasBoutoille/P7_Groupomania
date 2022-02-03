@@ -4,6 +4,7 @@ const db = require('./config/db');
 
 // Importation des routes
 const userRoutes = require('./routes/user.routes');
+const postRoutes = require('./routes/post.routes');
 
 // // Connexion a la base de données
 // const db = mysql.createConnection({
@@ -29,13 +30,6 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 app.use('/api/user', userRoutes);
-
-//   app.use('/api/user', (req, res, next) => {
-//     db.query('SELECT * FROM users', function (err, result) {
-//         if (err) throw error;
-//         console.log(result);
-//         res.status(200).json(result);
-//     });
-//   });
+app.use('/api/post', postRoutes);
 
 module.exports = app;
