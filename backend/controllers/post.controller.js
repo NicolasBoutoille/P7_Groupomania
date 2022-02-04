@@ -1,11 +1,12 @@
 const db = require('../config/db');
 const fs = require('fs');
+// const { post } = require('../routes/post.routes');
 
 // Get all posts
 exports.getAllPosts = (req, res, next) => {
     const sql = 'SELECT * FROM posts';
     db.query(sql, (err, result) => {
-        if(err) {
+        if (err) {
             res.status(404).json({ err });
             throw err;
         }
@@ -18,7 +19,7 @@ exports.getOnePost = (req, res, next) => {
     const sql = 'SELECT * FROM posts WHERE idPosts = ?';
     const idPost = req.params.id;
     db.query(sql, idPost, (err, result) => {
-        if(err) {
+        if (err) {
             res.status(404).json({ err });
             throw err;
         }
@@ -28,19 +29,85 @@ exports.getOnePost = (req, res, next) => {
 
 // Create post
 exports.createPost = (req, res, next) => {
-    console.log(req.body);
-    const postObject = JSON.parse(req.body);
-    console.log(postObject);
-    const post = {
-        ...postObject,
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    };
+    let { body, file } = req;
     const sql = ('INSERT INTO posts SET ?');
-    db.query(sql, post, (err, result) => {
-        if(err) {
+    if (!file) {
+        const post = {
+            ...body
+        };
+        db.query(sql, body, (err, result) => {
+            if (err) {
+                res.status(404).json({ err });
+                throw err;
+            }
+            res.status(201).json({ message: 'Post créé !' });
+        });
+    } else {
+        const post = {
+            ...body,
+            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        };
+        db.query(sql, post, (err, result) => {
+            if (err) {
+                res.status(404).json({ err });
+                throw err;
+            }
+            res.status(201).json({ message: 'Post créé !' });
+        });
+    }
+};
+
+// Modify Post
+exports.modifyPost = (req, res, next) => {
+    let { body, file } = req;
+    const postId = req.params.id;
+    const sqlUpdate = `UPDATE posts SET ? WHERE idPosts = ${postId}`;
+    if (file) {
+        const post = {
+            ...body,
+            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        };
+        db.query(sqlUpdate, post, (err, result) => {
+            if (err) {
+                res.status(404).json({ err });
+                throw err;
+            }
+            res.status(200).json({ message: 'Post modifié !' })
+        });
+    } else {
+        const post = {
+            ...body
+        };
+        db.query(sqlUpdate, post, (err, result) => {
+            if (err) {
+                res.status(404).json({ err });
+                throw err;
+            }
+            res.status(200).json({ message: 'Post modifié !' })
+        });
+    }
+};
+
+// Delete Post
+exports.deletePost = (req, res, next) => {
+    const postId = req.params.id;
+    const sqlSelect = 'SELECT * FROM posts WHERE idPosts = ?';
+    db.query(sqlSelect, postId, (err, result) => {
+        if (err) {
             res.status(404).json({ err });
             throw err;
         }
-        res.status(201).json({ message:'Post créé !'});
-    });
+        const post = result[0];
+        const filename = post.imageUrl.split('/images/')[1];
+        fs.unlink(`images/${filename}`, () => {
+            const sqlDelete = 'DELETE FROM posts WHERE idPosts = ?';
+            db.query(sqlDelete, postId, (err, result) => {
+                if (err) {
+                    res.status(404).json({ err });
+                    throw err;
+                }
+                res.status(200).json({ message: 'Post supprimé !' })
+            })
+        })
+    })
 };
