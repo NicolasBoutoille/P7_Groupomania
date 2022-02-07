@@ -1,7 +1,10 @@
 const router = require('express').Router();
-const authController = require('../controllers/auth.controller');
+const userController = require('../controllers/user.controller');
+const auth = require('../middlewares/auth.middleware');
+const multer = require('../middlewares/multer-config');
 
-router.post('/register', authController.signUp);
-router.post('/login', authController.login);
+router.get('/:id', auth, userController.getOneUser);
+router.put('/:id', auth, multer, userController.updateUser);
+router.delete('/:id', auth, userController.deleteUser);
 
-module.exports= router;
+module.exports = router;
