@@ -7,6 +7,7 @@ const db = require('./config/db');
 const authRoutes = require('./routes/auth.routes');
 const userRoutes = require('./routes/user.routes');
 const postRoutes = require('./routes/post.routes');
+const commmentRoutes = require('./routes/comment.route');
 
 // Middleware CORS
 app.use((req, res, next) => {
@@ -21,8 +22,9 @@ app.use(express.json());
 // On indique a Express qu'à chaque requête vers la route /images il faut gérer la ressource de manière statique dans le dossier
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-app.use('/api/auth', authRoutes);
+app.use('/api', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/post', postRoutes);
+app.use('/api/comment', commmentRoutes);
 
 module.exports = app;

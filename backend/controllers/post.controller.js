@@ -1,6 +1,5 @@
 const db = require('../config/db');
 const fs = require('fs');
-// const { post } = require('../routes/post.routes');
 
 // Get all posts
 exports.getAllPosts = (req, res, next) => {
@@ -35,7 +34,7 @@ exports.createPost = (req, res, next) => {
         const post = {
             ...body
         };
-        db.query(sql, body, (err, result) => {
+        db.query(sql, post, (err, result) => {
             if (err) {
                 res.status(404).json({ err });
                 throw err;
