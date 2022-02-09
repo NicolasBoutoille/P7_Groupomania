@@ -2,7 +2,7 @@ const db = require('../config/db');
 const fs = require('fs');
 
 // Get user profile
-exports.getOneUser = (req, res, next) =>{
+exports.getOneUser = (req, res, next) => {
     const sql = 'SELECT * FROM users WHERE idUsers = ?';
     const userId = req.params.id;
     db.query(sql, userId, (err, result) => {
@@ -46,7 +46,7 @@ exports.updateUser = (req, res, next) => {
 };
 
 // Delete user profile
-exports.deleteUser = (req, res, next) =>{
+exports.deleteUser = (req, res, next) => {
     const userId = req.params.id;
     const sqlSelect = 'SELECT * FROM users WHERE idUsers = ?';
     db.query(sqlSelect, userId, (err, result) => {
@@ -55,16 +55,26 @@ exports.deleteUser = (req, res, next) =>{
             throw err;
         }
         const user = result[0];
-        const filename = user.profilePicture.split('/images/')[1];
-        fs.unlink(`images/${filename}`, () => {
-            const sqlDelete = 'DELETE FROM users WHERE idUsers = ?';
+        const sqlDelete = 'DELETE FROM users WHERE idUsers = ?';
+        if (user.profilePicture != null) {
+            const filename = user.profilePicture.split('/images/')[1];
+            fs.unlink(`images/${filename}`, () => {
+                db.query(sqlDelete, userId, (err, result) => {
+                    if (err) {
+                        res.status(404).json({ err });
+                        throw err;
+                    }
+                    res.status(200).json({ message: 'Utilisateur supprimé !' });
+                });
+            });
+        } else {
             db.query(sqlDelete, userId, (err, result) => {
                 if (err) {
                     res.status(404).json({ err });
                     throw err;
                 }
-                res.status(200).json({ message: 'Utilisateur supprimé !'});
+                res.status(200).json({ message: 'Utilisateur supprimé !' });
             });
-        });
+        }
     });
 };
