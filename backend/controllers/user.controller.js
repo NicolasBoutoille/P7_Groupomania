@@ -55,7 +55,6 @@ exports.deleteUser = (req, res, next) =>{
             throw err;
         }
         const user = result[0];
-        console.log(user);
         const filename = user.profilePicture.split('/images/')[1];
         fs.unlink(`images/${filename}`, () => {
             const sqlDelete = 'DELETE FROM users WHERE idUsers = ?';
