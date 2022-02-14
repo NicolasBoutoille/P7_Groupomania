@@ -32,10 +32,10 @@ exports.login = (req, res, next) => {
     const sqlFind = 'SELECT * FROM users WHERE email = ?';
     db.query(sqlFind, email, (err, result) => {
         if (err) {
-            return res.status(404).json({ error });
+            return res.status(404).json({ err });
         }
         else if (result.length === 0) {
-            res.status(401).json({ error: 'Utilisateur non trouvé !' });
+            res.status(401).json({ err: 'Utilisateur non trouvé !' });
         }
         else {
             const userFounded = result[0];
