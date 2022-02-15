@@ -1,13 +1,15 @@
 <template>
-  <div class="logo">
-    <img
-      src="../assets/icon-left-font-monochrome-white.svg"
-      alt="Logo Groupomania"
-    />
-  </div>
+  <header>
+      <img
+        class="logo"
+        src="../assets/icon-left-font-monochrome-white.svg"
+        alt="Logo Groupomania"
+      />
+      <div class="line"></div>
+  </header>
   <div class="card">
-    <h1 class="card_title">Inscription</h1>
-    <p class="card_subtitle">
+    <h1 class="card__title">Inscription</h1>
+    <p class="card__subtitle">
       Tu as déjà un compte ?
       <span class="card__action" @click="switchToLogin()">Se connecter</span>
     </p>
@@ -45,6 +47,9 @@
       </button>
     </div>
   </div>
+  <footer class="footer">
+    <p>{{ copyright }}</p>
+  </footer>
 </template>
 
 <script>
@@ -65,36 +70,37 @@ export default {
         return false;
       }
     },
+    copyright() {
+      const currentYear = new Date().getFullYear();
+      return `Copyright Groupomania ${currentYear}`;
+    },
   },
   methods: {
     switchToLogin: function () {
       window.location.href = "http://localhost:8080/#/";
     },
-    // createAccount: function () {
-    //   this.$store.dispatch('createAccount', {
-    //     email : this.email,
-    //     username: this.username,
-    //     password: this.password
-    //   }).then(function (response) {
-    //     console.log(response);
-    //   }).
-    // },
-    createAccount () {
+    createAccount() {
       const data = {
-        email : this.email,
-        username : this.username,
-        password : this.password
+        email: this.email,
+        username: this.username,
+        password: this.password,
       };
-      fetch('http://localhost:3000/api/signup', {
+      fetch("http://localhost:3000/api/signup", {
         method: "POST",
-        headers: { 
-          'Content-Type': 'application/json'
+        headers: {
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       })
-      .then(res => res.json())
-      .catch((error) => console.log(error))
-    }
+        .then((res) => res.json())
+        .then((res) => {
+          if(!res.ok){
+            console.log(res)
+          } else {
+            console.log(res.message)
+          }
+        })
+    },
   },
 };
 </script>

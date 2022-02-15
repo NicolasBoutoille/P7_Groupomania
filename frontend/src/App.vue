@@ -3,78 +3,119 @@
     <!-- <router-link to="/">Login</router-link> |
     <router-link to="/about">Signup</router-link> -->
   </div>
-  <router-view/>
+  <router-view />
 </template>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap");
 
 * {
-  font-family: 'Avenir', sans-serif;
-  margin:0;
+  font-family: "Roboto", sans-serif;
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
+body {
+  background-image: linear-gradient(62deg, #091F43 0%, #C2595D 200%);
+  backdrop-filter: blur(5px) opacity(0.8);
+  height: 100vh;
+  position: relative;
+}
+
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+img {
+  margin: 2rem 3rem;
+  width: 200px;
+}
+
+.line {
+  margin: auto;
+  width: 85%;
+  height: 0;
+  border: 2px solid #C2595D;
+}
+
 #app {
   max-width: 100%;
-}
-body {
-  background-color: #091F43;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  padding:32px;
 }
-img {
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  height: 50px;
-}
+
 .card {
-  max-width: 100%;
+  margin: 1rem;
   width: 540px;
-  background:white;
-  border-radius: 16px;
-  padding:32px;
+  background: white;
+  border-radius: 10px;
+  padding: 32px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
+
 .card__title {
-  text-align:center;
+  text-align: center;
   font-weight: 800;
 }
+
 .card__subtitle {
   text-align: center;
-  color:#666;
+  color: #666;
   font-weight: 500;
 }
-  .button {
-    background: #2196F3;
-    color:white;
-    border-radius: 8px;
-    font-weight: 800;
-    font-size: 15px;
-    border: none;
-    width: 100%;
-    padding: 16px;
-    transition: .4s background-color;
-  }
-  .card__action {
-    color:#2196F3;
-    text-decoration: underline;
-  }
-  .card__action:hover {
-    cursor:pointer;
-  }
-  .button:hover {
-    cursor:pointer;
-    background: #1976D2;
-  }
-  .button--disabled {
-    background:#cecece;
-    color:#ececec
-  }
-  .button--disabled:hover {
-    cursor:not-allowed;
-    background:#cecece;
-  }
+
+.button {
+  background-color: #C2595D;
+  color: white;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 15px;
+  border: none;
+  width: 100%;
+  padding: 16px;
+  transition: 0.4s filter;
+}
+
+.card__action {
+  color: #C2595D;
+  text-decoration: underline;
+}
+
+.card__action:hover {
+  cursor: pointer;
+}
+
+.button:hover {
+  cursor: pointer;
+  filter: brightness(0.85);
+}
+
+.button--disabled {
+  background: #cecece;
+  color: #ececec;
+}
+
+.button--disabled:hover {
+  cursor: not-allowed;
+  background: #cecece;
+}
+
+.footer {
+  background-color:rgba(255, 255, 255, 0.02);
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  font-style: italic;
+  font-weight: lighter;
+  font-size: 0.8rem;
+}
 </style>
