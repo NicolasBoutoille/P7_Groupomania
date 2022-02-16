@@ -1,11 +1,11 @@
 <template>
   <header>
-      <img
-        class="logo"
-        src="../assets/icon-left-font-monochrome-white.svg"
-        alt="Logo Groupomania"
-      />
-      <div class="line"></div>
+    <img
+      class="logo"
+      src="../assets/icon-left-font-monochrome-white.svg"
+      alt="Logo Groupomania"
+    />
+    <div class="line"></div>
   </header>
   <div class="card">
     <h1 class="card__title">Inscription</h1>
@@ -37,6 +37,11 @@
         placeholder="Mot de passe"
       />
     </div>
+    <div class="form-error" v-if="errors.length > 0">{{ errors }}</div>
+    <div class="form-success" v-if="success.length > 0">
+      Inscription réussie ! 
+      <span class="form-success__btn" @click="switchToLogin()">Se connecter</span>
+    </div>
     <div class="form-row">
       <button
         @click="createAccount()"
@@ -60,6 +65,8 @@ export default {
       email: "",
       username: "",
       password: "",
+      errors: "",
+      success: "",
     };
   },
   computed: {
@@ -77,7 +84,7 @@ export default {
   },
   methods: {
     switchToLogin: function () {
-      window.location.href = "http://localhost:8080/#/";
+      this.$router.push("/");
     },
     createAccount() {
       const data = {
@@ -94,12 +101,16 @@ export default {
       })
         .then((res) => res.json())
         .then((res) => {
-          if(!res.ok){
-            console.log(res)
+          if (res.length > 0) {
+            this.errors = res[0].msg;
+          } else if (res.err) {
+            this.errors = res.err;
           } else {
-            console.log(res.message)
+            this.errors = "";
+            this.success = res.message;
+            console.log(res.message);
           }
-        })
+        });
     },
   },
 };
@@ -127,6 +138,23 @@ export default {
 
 .form-row__input::placeholder {
   color: #aaaaaa;
+}
+
+.form-error {
+  text-align: center;
+  color: red;
+  font-weight: 500;
+}
+
+.form-success {
+  text-align: center;
+  color: #1D9967;
+  font-weight: 500;
+}
+
+.form-success__btn {
+  text-decoration: underline;
+  cursor: pointer;
 }
 </style>
 

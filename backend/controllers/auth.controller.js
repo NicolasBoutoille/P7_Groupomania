@@ -14,7 +14,7 @@ exports.signUp = (req, res, next) => {
             const sql = 'INSERT INTO users SET ?';
             db.query(sql, user, (err, result) => {
                 if (!result) {
-                    res.status(200).json({ message: 'L\'email ou le nom d\'utilisateur est déjà utilisé' });
+                    res.status(400).json({ err: 'L\'email ou le nom d\'utilisateur est déjà utilisé' });
                 } else {
                     res.status(201).json({ message: 'Utilisateur créé !' });
                 };
@@ -44,7 +44,7 @@ exports.login = (req, res, next) => {
                 .then(valid => {
                     //console.log(valid);
                     if (!valid) {
-                        return res.status(401).json({ error: 'Mot de passe incorrect !' });
+                        return res.status(401).json({ err: 'Mot de passe incorrect !' });
                     }
                     res.status(200).json({
                         userId: userFounded.idUsers,
