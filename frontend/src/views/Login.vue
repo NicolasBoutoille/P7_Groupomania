@@ -15,34 +15,34 @@
         >Créer un compte</span
       >
     </p>
-      <div class="form-row">
-        <input
-          v-model="email"
-          class="form-row__input"
-          type="email"
-          placeholder="Adresse mail"
-          required
-        />
-      </div>
-      <p v-if="errors.length > 0">{{ errors }}</p> 
-      <div class="form-row">
-        <input
-          v-model="password"
-          class="form-row__input"
-          type="password"
-          placeholder="Mot de passe"
-          required
-        />
-      </div>
-      <div class="form-row">
-        <button
-          @click="login()"
-          class="button"
-          :class="{ 'button--disabled': !validatedFields }"
-        >
-          Connexion
-        </button>
-      </div>
+    <div class="form-row">
+      <input
+        v-model="email"
+        class="form-row__input"
+        type="email"
+        placeholder="Adresse mail"
+        required
+      />
+    </div>
+    <div class="form-row">
+      <input
+        v-model="password"
+        class="form-row__input"
+        type="password"
+        placeholder="Mot de passe"
+        required
+      />
+    </div>
+    <div class="form-row__error" v-if="errors.length > 0">{{ errors }}</div>
+    <div class="form-row">
+      <button
+        @click="login()"
+        class="button"
+        :class="{ 'button--disabled': !validatedFields }"
+      >
+        Connexion
+      </button>
+    </div>
   </div>
   <footer class="footer">
     <p>{{ copyright }}</p>
@@ -56,7 +56,7 @@ export default {
     return {
       email: "",
       password: "",
-      errors: ""
+      errors: "",
     };
   },
   computed: {
@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     switchToCreateAccount: function () {
-      this.$router.push("/signup")
+      this.$router.push("/signup");
     },
     login() {
       const data = {
@@ -90,16 +90,18 @@ export default {
       })
         .then((res) => res.json())
         .then((res) => {
-          if(!res.length > 0) {
-            console.log(res);
+          if (res.length > 0) {
             this.errors = res[0].msg;
+          } else if (res.err){
+            this.errors = res.err;
           } else {
-            localStorage.setItem("token", res.token)
+            localStorage.setItem("token", res.token);
+            this.errors = "";
           }
-         })
-        .catch((error) => {
-          console.log(error)
         })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };
@@ -128,5 +130,11 @@ export default {
 
 .form-row__input::placeholder {
   color: #aaaaaa;
+}
+
+.form-row__error {
+  text-align: center;
+  color: red;
+  font-weight: 500;
 }
 </style>
