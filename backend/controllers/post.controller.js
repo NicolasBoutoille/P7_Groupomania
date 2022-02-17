@@ -3,7 +3,7 @@ const fs = require('fs');
 
 // Get all posts
 exports.getAllPosts = (req, res, next) => {
-    const sql = 'SELECT * FROM posts';
+    const sql = 'SELECT * FROM posts order by dateOfPost DESC';
     db.query(sql, (err, result) => {
         if (err) {
             res.status(404).json({ err });

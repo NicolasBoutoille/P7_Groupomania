@@ -2,9 +2,24 @@
   <div id="nav">
     <!-- <router-link to="/">Login</router-link> |
     <router-link to="/about">Signup</router-link> -->
+    <Header/>
+    <Footer/>
   </div>
   <router-view />
 </template>
+
+<script>
+import Header from './components/Header.vue'
+import Footer from './components/Footer.vue'
+
+export default {
+  name: 'App',
+  components: {
+    Header,
+    Footer
+  }
+}
+</script>
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap");
@@ -19,35 +34,20 @@
 body {
   background-image: linear-gradient(62deg, #091F43 0%, #C2595D 200%);
   backdrop-filter: blur(5px) opacity(0.8);
-  height: 100vh;
-  position: relative;
-}
-
-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
-
-img {
-  margin: 2rem 3rem;
-  width: 200px;
-}
-
-.line {
-  margin: auto;
-  width: 85%;
-  height: 0;
-  border: 2px solid #C2595D;
 }
 
 #app {
   max-width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+}
+
+main {
+  display: flex;
   justify-content: center;
+  align-items: center;
+  margin: 2rem;
 }
 
 .card {
@@ -106,7 +106,7 @@ img {
   background: #cecece;
 }
 
-.footer {
+/* .footer {
   background-color:rgba(255, 255, 255, 0.02);
   display: flex;
   justify-content: center;
@@ -117,5 +117,5 @@ img {
   font-style: italic;
   font-weight: lighter;
   font-size: 0.8rem;
-}
+} */
 </style>

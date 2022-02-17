@@ -1,58 +1,49 @@
 <template>
-  <header>
-    <img
-      class="logo"
-      src="../assets/icon-left-font-monochrome-white.svg"
-      alt="Logo Groupomania"
-    />
-    <div class="line"></div>
-  </header>
-  <div class="card">
-    <h1 class="card__title">Connexion</h1>
-    <p class="card__subtitle">
-      Tu n'as pas encore de compte ?
-      <span class="card__action" @click="switchToCreateAccount()"
-        >Créer un compte</span
-      >
-    </p>
-    <div class="form-row">
-      <input
-        v-model="email"
-        class="form-row__input"
-        type="email"
-        placeholder="Adresse mail"
-        required
-      />
+  <main>
+    <div class="card">
+      <h1 class="card__title">Connexion</h1>
+      <p class="card__subtitle">
+        Tu n'as pas encore de compte ?
+        <span class="card__action" @click="switchToCreateAccount()"
+          >Créer un compte</span
+        >
+      </p>
+      <div class="form-row">
+        <input
+          v-model="email"
+          class="form-row__input"
+          type="email"
+          placeholder="Adresse mail"
+          required
+        />
+      </div>
+      <div class="form-row">
+        <input
+          v-model="password"
+          class="form-row__input"
+          type="password"
+          placeholder="Mot de passe"
+          required
+        />
+      </div>
+      <div class="form-row__error" v-if="errors.length > 0">{{ errors }}</div>
+      <div class="form-row">
+        <button
+          @click="login()"
+          class="button"
+          :class="{ 'button--disabled': !validatedFields }"
+        >
+          Connexion
+        </button>
+      </div>
     </div>
-    <div class="form-row">
-      <input
-        v-model="password"
-        class="form-row__input"
-        type="password"
-        placeholder="Mot de passe"
-        required
-      />
-    </div>
-    <div class="form-row__error" v-if="errors.length > 0">{{ errors }}</div>
-    <div class="form-row">
-      <button
-        @click="login()"
-        class="button"
-        :class="{ 'button--disabled': !validatedFields }"
-      >
-        Connexion
-      </button>
-    </div>
-  </div>
-  <footer class="footer">
-    <p>{{ copyright }}</p>
-  </footer>
+  </main>
 </template>
 
 <script>
 export default {
   name: "Login",
-  data: function () {
+  data() {
     return {
       email: "",
       password: "",
@@ -66,10 +57,6 @@ export default {
       } else {
         return false;
       }
-    },
-    copyright() {
-      const currentYear = new Date().getFullYear();
-      return `Copyright Groupomania ${currentYear}`;
     },
   },
   methods: {
@@ -92,7 +79,7 @@ export default {
         .then((res) => {
           if (res.length > 0) {
             this.errors = res[0].msg;
-          } else if (res.err){
+          } else if (res.err) {
             this.errors = res.err;
           } else {
             localStorage.setItem("token", res.token);
@@ -107,7 +94,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+
 .form-row {
   position: relative;
   display: flex;
