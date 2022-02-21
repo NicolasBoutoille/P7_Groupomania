@@ -9,7 +9,7 @@
         <div class="post-header">
           <div class="post-header__picture">
             <div class="picture-container">
-            <img :src="post.profilePicture" alt="Profile Picture" />
+            <img :src="post.profilePicture" alt="Photo de profil" />
             </div>
           </div>
           <div class="post-header__content">
@@ -25,6 +25,15 @@
           <div class="post-content__gif">
             <img :src="post.imageUrl" alt="Photo de post.idUsers" />
             <p></p>
+          </div>
+        </div>
+        <div class="post-comment" v-for="comment in comments" :key="comment.idPosts">
+          <div class="post-comment__picture">
+            <img :src="comment.profilePicture" alt="Photo de profil"/>
+          </div>
+          <div class="post-comment__content">
+            <h3>{{ comment.username}}</h3>
+            <p>{{ comment.cont}}</p>
           </div>
         </div>
       </div>
@@ -47,6 +56,7 @@ export default {
         //   dateOfPost: "",
         // },
       ],
+      comments: [],
     };
   },
   computed: {},
@@ -56,7 +66,7 @@ export default {
       this.$router.push("/");
     },
   },
-  mounted() {
+  created() {
     let Token = localStorage.getItem("token");
     fetch("http://localhost:3000/api/post", {
       method: "GET",
@@ -83,6 +93,33 @@ export default {
         console.log(error);
       });
   },
+  mounted() {
+    let Token = localStorage.getItem('token');
+    fetch("http://localhost:3000/api/comment", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + Token,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        res.result.map((comment) => {
+          this.comments.push({
+            idComments: comment.idComments,
+            comment: comment.comment,
+            idUsers: comment.idUsers,
+            idPosts: comment.idPosts,
+            dateOfComment: comment.dateOfComment,
+            username: comment.username,
+            profilePicture: comment.profilePicture
+          });
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 };
 </script>
 
@@ -139,7 +176,7 @@ export default {
   height: 48px;
   width: 48px;
   border-radius: 24px;
-  background: red;
+  background: #cecece;
   overflow: hidden;
 }
 
@@ -188,5 +225,43 @@ export default {
 
 .post-content__gif img {
   max-width: 400px;
+}
+
+.post-comment {
+  display: flex;
+  padding: 0.5rem;
+}
+
+.post-comment__picture {
+  height: 36px;
+  width: 36px;
+  border-radius: 18px;
+  background: #cecece;
+  overflow: hidden;
+}
+
+.post-comment__picture img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.post-comment__content {
+  width: 50%;
+  border-radius: 10px;
+  padding: 0 1rem;
+  background: #ccd6dd;
+  margin: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.post-comment__content h3 {
+  font-size: 0.9rem;
+  color: #091f43;
+}
+
+.post-comment__content {
+  font-size: 0.8rem;
 }
 </style>

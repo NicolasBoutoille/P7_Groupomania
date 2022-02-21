@@ -2,7 +2,7 @@ const db = require('../config/db');
 
 // Get all comments
 exports.getAllComments = (req, res, next) => {
-    const sql = 'SELECT * FROM comments';
+    const sql = 'SELECT * FROM groupomania.comments JOIN posts ON comments.idPosts = posts.idPosts JOIN users ON users.idUsers = comments.idUsers order by dateOfComment DESC;';
     db.query(sql, (err, result) => {
         if (err) {
             res.status(404).json({ err });
