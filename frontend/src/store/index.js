@@ -1,7 +1,18 @@
 import { createStore } from 'vuex'
 
 export default createStore({
-  state: {
+  state() {
+    return {
+      posts: [
+        {
+          idPosts: "",
+          content: "",
+          imageUrl: "",
+          idUsers: "",
+          dateOfPost: ""
+        }
+      ]
+    };
   },
   getters: {
   },

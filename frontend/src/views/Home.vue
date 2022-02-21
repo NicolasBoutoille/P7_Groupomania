@@ -1,11 +1,11 @@
 <template>
   <header>
-    <span class="logout" @click="switchToLogin()"> Déconnexion </span>
+    <span class="logout" @click="logout()"> Déconnexion </span>
   </header>
   <main>
     <div class="container">
       <!-- <div class="create-post"></div> -->
-      <div class="post">
+      <div class="post" v-for="post in posts" :key="post.idPosts">
         <div class="post-header">
           <div class="post-header__picture">
             <div class="picture-container">
@@ -13,18 +13,22 @@
             </div>
           </div>
           <div class="post-header__content">
-            <h2 class="username" @click="getAllPosts()">Username</h2>
-            <p class="dateOfPost">Publié le O2/02/22</p>
+            <h2 class="username" @click="getAllPosts()">
+              {{ post.idUsers }}
+            </h2>
+            <p class="dateOfPost">{{ post.dateOfPost }}</p>
           </div>
         </div>
         <div class="post-line"></div>
         <div class="post-content">
-          <p class="post-content__text">Hello Michael !</p>
+          <p class="post-content__text">{{ post.content }}</p>
           <div class="post-content__gif">
-            <img src="../assets/giphy.gif" alt="Michael Scott" />
+            <img :src="post.imageUrl" alt="" />
+            <p></p>
           </div>
         </div>
       </div>
+      <div></div>
     </div>
   </main>
 </template>
@@ -34,32 +38,48 @@ export default {
   name: "Home",
   data() {
     return {
-      post: {}
+      posts: [
+        // {
+        //   idPosts: "",
+        //   content: "",
+        //   imageUrl: "",
+        //   idUsers: "",
+        //   dateOfPost: "",
+        // },
+      ],
     };
   },
-  computed: {
-  },
+  computed: {},
   methods: {
-    switchToLogin: function () {
+    logout: function () {
+      localStorage.removeItem("token");
       this.$router.push("/");
     },
-    getAllPosts() {
-      let Token = localStorage.getItem("token");
-      fetch("http://localhost:3000/api/post", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + Token,
-        }
-      })
-      .then(res => res.json())
-      .then(res => {
-        console.log(res)
+  },
+  mounted() {
+    let Token = localStorage.getItem("token");
+    fetch("http://localhost:3000/api/post", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + Token,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        res.result.map((post) => {
+          this.posts.push({
+            idPosts: post.idPosts,
+            content: post.content,
+            imageUrl: post.imageUrl,
+            idUsers: post.idUsers,
+            dateOfPost: post.dateOfPost,
+          });
+        });
       })
       .catch((error) => {
-        console.log(error)
-      })
-    }
+        console.log(error);
+      });
   },
 };
 </script>

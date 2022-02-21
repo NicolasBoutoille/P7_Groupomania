@@ -84,6 +84,7 @@ export default {
           } else {
             localStorage.setItem("token", res.token);
             this.errors = "";
+            this.$router.push("/home");
           }
         })
         .catch((error) => {
