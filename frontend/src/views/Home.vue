@@ -9,12 +9,12 @@
         <div class="post-header">
           <div class="post-header__picture">
             <div class="picture-container">
-              <img src="../assets/blank-profile.png" alt="Profile Picture" />
+            <img :src="post.profilePicture" alt="Profile Picture" />
             </div>
           </div>
           <div class="post-header__content">
             <h2 class="username" @click="getAllPosts()">
-              {{ post.idUsers }}
+              {{ post.username }}
             </h2>
             <p class="dateOfPost">{{ post.dateOfPost }}</p>
           </div>
@@ -23,7 +23,7 @@
         <div class="post-content">
           <p class="post-content__text">{{ post.content }}</p>
           <div class="post-content__gif">
-            <img :src="post.imageUrl" alt="" />
+            <img :src="post.imageUrl" alt="Photo de post.idUsers" />
             <p></p>
           </div>
         </div>
@@ -74,6 +74,8 @@ export default {
             imageUrl: post.imageUrl,
             idUsers: post.idUsers,
             dateOfPost: post.dateOfPost,
+            username: post.username,
+            profilePicture: post.profilePicture
           });
         });
       })

@@ -19,7 +19,7 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
-app.use(helmet());
+app.use(helmet({crossOriginResourcePolicy: false,}));
 
 // On indique a Express qu'à chaque requête vers la route /images il faut gérer la ressource de manière statique dans le dossier
 app.use('/images', express.static(path.join(__dirname, 'images')));
