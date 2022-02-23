@@ -4,12 +4,36 @@
   </header>
   <main>
     <div class="container">
-      <!-- <div class="create-post"></div> -->
+      <form class="post-create">
+        <div class="post-create__top">
+          <img src="../assets/blank-profile.png" alt="Photo de profil" />
+          <input
+            v-model="textPublication"
+            class="post-create__text"
+            type="text"
+            placeholder="Quoi de neuf ?"
+          />
+        </div>
+        <div class="post-create__bottom">
+          <input
+            @change="processFile($event)"
+            class="post-create__img"
+            type="file"
+            accept="image/png, image/jpeg, image/jpg, image/gif"
+          />
+          <input
+            @click="createPost()"
+            type="submit"
+            value="Poster"
+            class="post-create__btn"
+          />
+        </div>
+      </form>
       <div class="post" v-for="post in posts" :key="post.idPosts">
         <div class="post-header">
           <div class="post-header__picture">
             <div class="picture-container">
-            <img :src="post.profilePicture" alt="Photo de profil" />
+              <img :src="post.profilePicture" alt="Photo de profil" />
             </div>
           </div>
           <div class="post-header__content">
@@ -27,15 +51,20 @@
             <p></p>
           </div>
         </div>
-        <div class="post-comment" v-for="comment in comments" :key="comment.idPosts">
+        <!-- <div class="post-comment">
           <div class="post-comment__picture">
-            <img :src="comment.profilePicture" alt="Photo de profil"/>
+            <img src="../assets/blank-profile.png" alt="Photo de profil" />
           </div>
           <div class="post-comment__content">
-            <h3>{{ comment.username}}</h3>
-            <p>{{ comment.cont}}</p>
+            <h3>Username</h3>
+            <p>Comment</p>
           </div>
-        </div>
+        </div> -->
+        <input
+          class="post-add__comment"
+          type="text"
+          placeholder="Ajouter un commentaire"
+        />
       </div>
       <div></div>
     </div>
@@ -48,25 +77,46 @@ export default {
   data() {
     return {
       posts: [
-        // {
-        //   idPosts: "",
-        //   content: "",
-        //   imageUrl: "",
-        //   idUsers: "",
-        //   dateOfPost: "",
-        // },
       ],
-      comments: [],
-    };
+      textPublication: "",
+      imagePublication: ""
+
+    }
   },
   computed: {},
   methods: {
-    logout: function () {
+    logout() {
       localStorage.removeItem("token");
+      localStorage.removeItem("userId");
       this.$router.push("/");
     },
+    processFile(event) {
+    this.imagePublication = event.target.files[0]
+    },
+    createPost() {
+      let Token = localStorage.getItem("token");
+      let formData = new FormData();
+      formData.append('image', this.imagePublication);
+      formData.append('content', this.textPublication);
+      formData.append('idUsers', localStorage.getItem('userId'));
+      fetch("http://localhost:3000/api/post", {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + Token
+        },
+        body: formData,
+      })
+      .then((res) => res.json())
+      .then((res) => {
+        this.$router.push("/home");
+        return res;
+      })
+      .catch((error) => {
+        return error;
+      })
+    }
   },
-  created() {
+  mounted() {
     let Token = localStorage.getItem("token");
     fetch("http://localhost:3000/api/post", {
       method: "GET",
@@ -85,7 +135,7 @@ export default {
             idUsers: post.idUsers,
             dateOfPost: post.dateOfPost,
             username: post.username,
-            profilePicture: post.profilePicture
+            profilePicture: post.profilePicture,
           });
         });
       })
@@ -93,33 +143,6 @@ export default {
         console.log(error);
       });
   },
-  mounted() {
-    let Token = localStorage.getItem('token');
-    fetch("http://localhost:3000/api/comment", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + Token,
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        res.result.map((comment) => {
-          this.comments.push({
-            idComments: comment.idComments,
-            comment: comment.comment,
-            idUsers: comment.idUsers,
-            idPosts: comment.idPosts,
-            dateOfComment: comment.dateOfComment,
-            username: comment.username,
-            profilePicture: comment.profilePicture
-          });
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
 };
 </script>
 
@@ -151,12 +174,57 @@ export default {
   max-width: 650px;
 }
 
-.create-post {
+.post-create {
   margin: 1rem;
+  padding: 1rem;
+  width: 100%;
   max-width: 450px;
-  background: #ececec;
+  background: white;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.post-create__top {
+  display: flex;
+}
+
+.post-create__top img {
+  height: 36px;
+  width: 36px;
+  border-radius: 18px;
+  background: #cecece;
+  overflow: hidden;
+  margin-right: 1rem;
+}
+
+.post-create__top input {
+  display: flex;
+  justify-content: center;
+  border: none;
+  background: #ccd6dd;
+  width: 90%;
+  border-radius: 15px;
+  padding: 0 0.8rem;
+}
+
+.post-create__bottom {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.post-create__btn {
+  padding: 0 1rem;
+  border: none;
+  border-radius: 5px;
+  background: #091f43;
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  cursor: pointer;
+}
+
+.post-create__btn:hover {
+  background: #2b4369;
 }
 
 .post {
@@ -194,7 +262,6 @@ export default {
 
 .post-header__content h2 {
   font-size: 1rem;
-  color: #091f43;
 }
 
 .post-header__content p {
@@ -210,7 +277,7 @@ export default {
 }
 
 .post-content {
-  padding: 1rem;
+  padding: 1rem 1rem 0 1rem;
   overflow: hidden;
 }
 
@@ -225,6 +292,17 @@ export default {
 
 .post-content__gif img {
   max-width: 400px;
+}
+
+.post-add__comment {
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem auto;
+  padding: 0.3rem 0.8rem;
+  width: 85%;
+  background: #ccd6dd;
+  border-radius: 15px;
+  border: none;
 }
 
 .post-comment {
@@ -258,7 +336,6 @@ export default {
 
 .post-comment__content h3 {
   font-size: 0.9rem;
-  color: #091f43;
 }
 
 .post-comment__content {

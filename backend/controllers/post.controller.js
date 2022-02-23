@@ -3,7 +3,8 @@ const fs = require('fs');
 
 // Get all posts
 exports.getAllPosts = (req, res, next) => {
-    const sql = 'SELECT * FROM posts JOIN users ON posts.idUsers = users.idUsers order by dateOfPost DESC';
+    const sql = 'SELECT * FROM posts LEFT JOIN users ON posts.idUsers = users.idUsers ORDER by dateOfPost DESC';
+    // const sql = 'SELECT * FROM posts JOIN users ON posts.idUsers = users.idUsers JOIN comments ON comments.idPosts = posts.idPosts ORDER by dateOfPost DESC';
     db.query(sql, (err, result) => {
         if (err) {
             res.status(404).json({ err });

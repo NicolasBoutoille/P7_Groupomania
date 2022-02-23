@@ -4,38 +4,38 @@
       <h1 class="card__title">Connexion</h1>
       <p class="card__subtitle">
         Tu n'as pas encore de compte ?
-        <span class="card__action" @click="switchToCreateAccount()"
-          >Créer un compte</span
-        >
+        <span class="card__action" @click="switchToCreateAccount()">Créer un compte</span>
       </p>
-      <div class="form-row">
-        <input
-          v-model="email"
-          class="form-row__input"
-          type="email"
-          placeholder="Adresse mail"
-          required
-        />
-      </div>
-      <div class="form-row">
-        <input
-          v-model="password"
-          class="form-row__input"
-          type="password"
-          placeholder="Mot de passe"
-          required
-        />
-      </div>
-      <div class="form-row__error" v-if="errors.length > 0">{{ errors }}</div>
-      <div class="form-row">
-        <button
-          @click="login()"
-          class="button"
-          :class="{ 'button--disabled': !validatedFields }"
-        >
-          Connexion
-        </button>
-      </div>
+      <form class="form">
+        <div class="form-row">
+          <input
+            v-model="email"
+            class="form-row__input"
+            type="email"
+            placeholder="Adresse mail"
+            required
+          />
+        </div>
+        <div class="form-row">
+          <input
+            v-model="password"
+            class="form-row__input"
+            type="password"
+            placeholder="Mot de passe"
+            required
+          />
+        </div>
+        <div class="form-row__error" v-if="errors.length > 0">{{ errors }}</div>
+        <div class="form-row">
+          <input
+            @click="login()"
+            type="submit"
+            value="Connexion"
+            class="button"
+            :class="{ 'button--disabled': !validatedFields }"
+          />
+        </div>
+      </form>
     </div>
   </main>
 </template>
@@ -82,6 +82,7 @@ export default {
           } else if (res.err) {
             this.errors = res.err;
           } else {
+            localStorage.setItem("userId", res.userId);
             localStorage.setItem("token", res.token);
             this.errors = "";
             this.$router.push("/home");
@@ -96,7 +97,6 @@ export default {
 </script>
 
 <style scoped>
-
 .form-row {
   position: relative;
   display: flex;

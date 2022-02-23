@@ -14,9 +14,9 @@ exports.getAllComments = (req, res, next) => {
 
 // Get comment by ID
 exports.getOneComment = (req, res, next) => {
-    const sql = 'SELECT * FROM comments WHERE idComments = ?';
-    const commentId = req.params.id;
-    db.query(sql, commentId, (err, result) => {
+    const sql = 'SELECT * FROM comments WHERE idPosts = ?';
+    const postId = req.params.id;
+    db.query(sql, postId, (err, result) => {
         if (err) {
             res.status(404).json({ err });
             throw err;

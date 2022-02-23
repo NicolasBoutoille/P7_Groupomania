@@ -6,46 +6,48 @@
         Tu as déjà un compte ?
         <span class="card__action" @click="switchToLogin()">Se connecter</span>
       </p>
-      <div class="form-row">
-        <input
-          v-model="email"
-          class="form-row__input"
-          type="text"
-          placeholder="Adresse mail"
-        />
-      </div>
-      <div class="form-row">
-        <input
-          v-model="username"
-          class="form-row__input"
-          type="text"
-          placeholder="Nom d'utilisateur"
-        />
-      </div>
-      <div class="form-row">
-        <input
-          v-model="password"
-          class="form-row__input"
-          type="password"
-          placeholder="Mot de passe"
-        />
-      </div>
-      <div class="form-error" v-if="errors.length > 0">{{ errors }}</div>
-      <div class="form-success" v-if="success.length > 0">
-        Inscription réussie !
-        <span class="form-success__btn" @click="switchToLogin()"
-          >Se connecter</span
-        >
-      </div>
-      <div class="form-row">
-        <button
-          @click="createAccount()"
-          class="button"
-          :class="{ 'button--disabled': !validatedFields }"
-        >
-          Créer mon compte
-        </button>
-      </div>
+      <form class="form">
+        <div class="form-row">
+          <input
+            v-model="email"
+            class="form-row__input"
+            type="text"
+            placeholder="Adresse mail"
+          />
+        </div>
+        <div class="form-row">
+          <input
+            v-model="username"
+            class="form-row__input"
+            type="text"
+            placeholder="Nom d'utilisateur"
+          />
+        </div>
+        <div class="form-row">
+          <input
+            v-model="password"
+            class="form-row__input"
+            type="password"
+            placeholder="Mot de passe"
+          />
+        </div>
+        <div class="form-error" v-if="errors.length > 0">{{ errors }}</div>
+        <div class="form-success" v-if="success.length > 0">
+          Inscription réussie !
+          <span class="form-success__btn" @click="switchToLogin()"
+            >Se connecter</span
+          >
+        </div>
+        <div class="form-row">
+          <input
+            @click="createAccount()"
+            type="submit"
+            value="Créer mon compte"
+            class="button"
+            :class="{ 'button--disabled': !validatedFields }"
+          />
+        </div>
+      </form>
     </div>
   </main>
 </template>
@@ -106,7 +108,6 @@ export default {
 </script>
 
 <style>
-
 .form-row {
   display: flex;
   margin: 16px 0px;
