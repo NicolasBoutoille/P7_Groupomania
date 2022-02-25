@@ -1,9 +1,9 @@
 <template>
   <div class="comment">
-    <button class="comment-show">Afficher les commentaires</button>
+    <button @click="test()" class="comment-display">Afficher les commentaires</button>
     <div class="comment-list">
       <div class="comment-list__picture">
-        <img src="../assets/blank-profile.png" />
+        <img src="../assets/blank-profile.png" alt="Photo de profil"/>
       </div>
       <div class="comment-list__content">
         <h3>username</h3>
@@ -22,12 +22,18 @@ export default {
   data() {
     return {
       comments: [],
-    }
+    };
   },
-  created() {
+  methods: {
+    test() {
+      let posts = this.$parent.posts;
+      posts.forEach(post => 
+      console.log(post)
+      );
+    },
+    showComments() {
       let Token = localStorage.getItem("token");
-      let id = 35;
-      fetch("http://localhost:3000/api/comment/" + id, {
+      fetch("http://localhost:3000/api/comment/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -43,13 +49,14 @@ export default {
               idUsers: comment.idUsers,
               dateOfComment: comment.dateOfComment,
               username: comment.username,
-              profilePicture: comment.profilePicture
+              profilePicture: comment.profilePicture,
             });
           });
         })
         .catch((error) => {
           console.log(error);
         });
+    },
   },
 };
 </script>
@@ -61,7 +68,7 @@ export default {
   justify-content: center;
 }
 
-.comment-show {
+.comment-display {
   margin: 0.5rem auto;
   padding: 0.3rem 0.8rem;
   border-radius: 15px;
@@ -72,8 +79,8 @@ export default {
   cursor: pointer;
 }
 
-.comment-show:hover {
-  background: #2b4369;
+.comment-display:hover {
+  filter: brightness(0.85);
 }
 
 .comment-list {

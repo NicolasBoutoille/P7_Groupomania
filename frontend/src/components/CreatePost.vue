@@ -54,7 +54,7 @@ export default {
       })
         .then((res) => res.json())
         .then((res) => {
-          document.location.reload();
+          this.$router.go();
           return res;
         })
         .catch((error) => {
@@ -112,10 +112,10 @@ export default {
   background: #091f43;
   color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  cursor: pointer;
 }
 
 .post-create__btn:hover {
-  background: #2b4369;
+  filter: brightness(0.85);
+  cursor: pointer;
 }
 </style>

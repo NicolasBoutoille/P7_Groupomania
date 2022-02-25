@@ -11,7 +11,8 @@
           <input
             v-model="email"
             class="form-row__input"
-            type="text"
+            type="email"
+            label="email"
             placeholder="Adresse mail"
           />
         </div>
@@ -20,6 +21,7 @@
             v-model="username"
             class="form-row__input"
             type="text"
+            label="text"
             placeholder="Nom d'utilisateur"
           />
         </div>
@@ -28,6 +30,7 @@
             v-model="password"
             class="form-row__input"
             type="password"
+            label="password"
             placeholder="Mot de passe"
           />
         </div>

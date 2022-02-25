@@ -49,6 +49,7 @@ export default {
 
 .logout:hover {
   cursor: pointer;
+  filter: brightness(0.85);
 }
 
 .container {

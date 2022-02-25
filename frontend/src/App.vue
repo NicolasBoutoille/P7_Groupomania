@@ -1,10 +1,6 @@
 <template>
-  <div id="nav">
-    <!-- <router-link to="/">Login</router-link> |
-    <router-link to="/about">Signup</router-link> -->
     <Header/>
     <Footer/>
-  </div>
   <router-view />
 </template>
 
@@ -37,7 +33,7 @@ body {
 }
 
 #app {
-  max-width: 100%;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -71,7 +67,7 @@ main {
 }
 
 .button {
-  background-color: #C2595D;
+  background-color: #091f43;
   color: white;
   border-radius: 8px;
   font-weight: 800;
@@ -98,7 +94,7 @@ main {
 
 .button--disabled {
   background: #cecece;
-  color: #ececec;
+  color: white;
 }
 
 .button--disabled:hover {

@@ -12,6 +12,7 @@
             v-model="email"
             class="form-row__input"
             type="email"
+            label="email"
             placeholder="Adresse mail"
             required
           />
@@ -21,6 +22,7 @@
             v-model="password"
             class="form-row__input"
             type="password"
+            label="password"
             placeholder="Mot de passe"
             required
           />

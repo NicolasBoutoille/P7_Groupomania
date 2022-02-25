@@ -15,37 +15,6 @@ exports.getOneUser = (req, res, next) => {
     });
 };
 
-// Update user profile
-// exports.updateUser = (req, res, next) => {
-//     let { body, file } = req;
-//     const userId = req.params.id;
-//     const sqlUpdate = `UPDATE users SET ? WHERE idUsers = ${userId}`;
-//     if (file) {
-//         const user = {
-//             ...body,
-//             profilePicture: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-//         };
-//         db.query(sqlUpdate, user, (err, result) => {
-//             if (err) {
-//                 res.status(404).json({ err });
-//                 throw err;
-//             }
-//             res.status(200).json({ message: 'Profil modifié !' })
-//         });
-//     } else {
-//         const user = {
-//             ...body
-//         };
-//         db.query(sqlUpdate, user, (err, result) => {
-//             if (err) {
-//                 res.status(404).json({ err });
-//                 throw err;
-//             }
-//             res.status(200).json({ message: 'Profil modifié !' })
-//         });
-//     }
-// };
-
 exports.updateUser = (req, res, next) => {
     let { body, file } = req;
     const userId = req.params.id;
@@ -62,7 +31,7 @@ exports.updateUser = (req, res, next) => {
             }
             res.status(200).json({ message: 'Profil modifié !' })
         });
-    } else {
+    } else if (req.body.password !== null){
         bcrypt.hash(req.body.password, 10)
             .then(hash => {
                 const user = {
@@ -78,6 +47,17 @@ exports.updateUser = (req, res, next) => {
                 });
             })
             .catch(error => res.status(500).json({ error }));
+    } else {
+        const user = {
+            ...body
+        };
+        db.query(sqlUpdate, user, (err, result) => {
+            if (err) {
+                res.status(404).json({ err });
+                throw err;
+            }
+            res.status(200).json({ message: 'Profil modifié !' })
+        });
     }
 };
 
