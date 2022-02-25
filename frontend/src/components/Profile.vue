@@ -1,5 +1,6 @@
 <template>
   <header>
+    <router-link to="/home">Home</router-link>
     <span class="logout" @click="logout()"> Déconnexion </span>
   </header>
   <div class="profil">
@@ -175,7 +176,7 @@ export default {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 1rem;
   margin: 2rem auto;
-  width: 80%;
+  width: 60%;
 }
 .profil h1 {
   font-size: 2rem;
@@ -215,7 +216,8 @@ export default {
 .profil-info {
   display: flex;
   flex-direction: column;
-  width: 35%;
+  width: 50%;
+  margin: 1rem;
 }
 .profil-info input {
   margin: 0.5rem;

@@ -1,5 +1,6 @@
 <template>
   <header>
+    <router-link to="/profile">Profil</router-link>
     <span class="logout" @click="logout()"> Déconnexion </span>
   </header>
   <main>
@@ -50,6 +51,17 @@ export default {
 .logout:hover {
   cursor: pointer;
   filter: brightness(0.85);
+}
+
+a {
+  position: absolute;
+  top: 0px;
+  right: 8rem;
+  margin: 2.5rem 3rem;
+  padding: 0.3rem 0.5rem;
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
 }
 
 .container {

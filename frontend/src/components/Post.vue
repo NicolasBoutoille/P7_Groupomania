@@ -10,7 +10,7 @@
         <h2 class="username">
           {{ post.username }}
         </h2>
-        <p class="dateOfPost">{{ post.dateOfPost }}</p>
+        <p class="dateOfPost">Posté le {{ formatDate(post.dateOfPost) }}</p>
       </div>
     </div>
     <div class="post-line"></div>
@@ -36,6 +36,15 @@ export default {
     return {
         posts: [],
     };
+  },
+  methods: {
+    formatDate(input) {
+      var datePart = input.match(/\d+/g),
+        year = datePart[0].substring(2), // get only two digits
+        month = datePart[1],
+        day = datePart[2];
+      return day + "/" + month + "/" + year;
+    },
   },
   mounted() {
     let Token = localStorage.getItem("token");
