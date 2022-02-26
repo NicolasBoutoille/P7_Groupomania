@@ -48,6 +48,13 @@
         label="modify"
         value="Modifier"
       />
+      <input
+        @click="confirmation()"
+        class="profil-info__delete"
+        name="delete"
+        label="delete"
+        value="Supprimer le compte"
+      />
     </form>
   </div>
 </template>
@@ -127,6 +134,35 @@ export default {
           });
       }
     },
+    confirmation() {
+      var result = confirm("Voulez-vous vraiment supprimer votre compte ?");
+      if (result == true ){
+        event.preventDefault();
+        this.deleteProfil();
+        this.logout();
+      } else {
+        this.$router.go();
+      }
+    },
+    deleteProfil() {
+      let userId = localStorage.getItem("userId");
+      let Token = localStorage.getItem("token");
+      if (userId !== null) {
+        fetch("http://localhost:3000/api/user/" + userId, {
+          method:"DELETE",
+          headers: {
+            Authorization: "Bearer " + Token,
+          },
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            console.log(res)
+          })
+          .catch((error) => {
+            return error;
+          })
+      }
+    }
   },
   mounted() {
     let userId = localStorage.getItem("userId");
@@ -236,6 +272,15 @@ export default {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 .profil-info__btn:hover {
+  cursor: pointer;
+  filter: brightness(0.85);
+}
+.profil-info__delete {
+  background: #c2595d;
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.profil-info__delete:hover {
   cursor: pointer;
   filter: brightness(0.85);
 }
