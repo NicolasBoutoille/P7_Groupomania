@@ -1,23 +1,34 @@
 <template>
   <div class="comment">
-    <button
-      @click="showComments(post)"
-      class="comment-display"
-    >
+    <button @click="showComments(post)" class="comment-display">
       Afficher les commentaires
     </button>
-    <div class="comment-list" v-for="comment in comments" :key="comment.idComments">
+    <div
+      class="comment-list"
+      v-for="comment in comments"
+      :key="comment.idComments"
+    >
       <div class="comment-list__picture">
         <img :src="comment.profilePicture" alt="Photo de profil" />
       </div>
+      <img
+        @click="deleteComment(comment.idComments)"
+        class="comment-list__delete"
+        src="../assets/x.png"
+        alt="Supprimer le commentaire"
+      />
       <div class="comment-list__content">
-        <h3>{{comment.username}}</h3>
-        <p>{{comment.content}}</p>
+        <h3>{{ comment.username }}</h3>
+        <p>{{ comment.content }}</p>
       </div>
     </div>
     <form class="comment-add" :action="showComments()">
-      <input v-model="commentaire" type="text" placeholder="Ajouter un commentaire" />
-      <input @click="createComment()" type="submit" value="Poster">
+      <input
+        @keyup.enter="createComment()"
+        v-model="commentaire"
+        type="text"
+        placeholder="Ajouter un commentaire..."
+      />
     </form>
   </div>
 </template>
@@ -25,7 +36,7 @@
 <script>
 export default {
   name: "Comment",
-  props: ['post'],
+  props: ["post"],
   data() {
     return {
       comments: [],
@@ -62,30 +73,52 @@ export default {
     createComment() {
       let Token = localStorage.getItem("token");
       let userId = localStorage.getItem("userId");
+      let postId = this.post;
       const data = {
         content: this.commentaire,
         idUsers: userId,
-        idPosts: this.post
+        idPosts: postId,
       };
       if (userId !== null) {
         fetch("http://localhost:3000/api/comment", {
           method: "POST",
           headers: {
             Authorization: "Bearer " + Token,
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(data)
+          body: JSON.stringify(data),
         })
-        .then((res) => res.json())
-        .then((res) => {
-          console.log(res);
-          this.$router.go();
-        })
-        .catch((error) => {
-          return error;
-        })
+          .then((res) => res.json())
+          .then((res) => {
+            console.log(res);
+            this.showComments(postId);
+            this.commentaire = "";
+          })
+          .catch((error) => {
+            return error;
+          });
       }
-    }
+    },
+    deleteComment(commentId) {
+      let userId = localStorage.getItem("userId");
+      let Token = localStorage.getItem("token");
+      if (userId !== null) {
+        fetch("http://localhost:3000/api/comment/" + commentId, {
+          method: "DELETE",
+          headers: {
+            Authorization: "Bearer " + Token,
+          },
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            console.log(res);
+            this.$router.go();
+          })
+          .catch((error) => {
+            return error;
+          });
+      }
+    },
   },
 };
 </script>
@@ -110,15 +143,17 @@ export default {
   flex-direction: column;
   justify-content: center;
 }
-
 .comment-list {
   display: flex;
   background: #ececec;
   padding: 0.3rem;
   margin: 0.5rem 1rem;
   border-radius: 10px;
+  position: relative;
 }
-
+.comment-list:hover .comment-list__delete{
+  visibility: visible;
+}
 .comment-list__picture img {
   height: 36px;
   width: 36px;
@@ -127,7 +162,14 @@ export default {
   overflow: hidden;
   margin-right: 1rem;
 }
-
+.comment-list__delete {
+  height: 0.7rem;
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  visibility: hidden;
+  cursor: pointer;
+}
 .comment-list__content {
   display: flex;
   flex-direction: column;
@@ -148,7 +190,7 @@ export default {
 
 .comment-add input {
   width: 85%;
-  margin: 0.5rem auto;
+  margin: 0.5rem auto 1rem auto;
   padding: 0.3rem 0.8rem;
   border-radius: 15px;
   border: none;

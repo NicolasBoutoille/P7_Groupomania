@@ -12,7 +12,12 @@
         </h2>
         <p class="dateOfPost">Posté le {{ formatDate(post.dateOfPost) }}</p>
       </div>
-      <img @click="deletePost(post.idPosts)" class="post-header__delete" src="../assets/x-solid.svg" alt="Supprimer le post">
+      <img
+        @click="deletePost(post.idPosts)"
+        class="post-header__delete"
+        src="../assets/x.png"
+        alt="Supprimer le post"
+      />
     </div>
     <div class="post-line"></div>
     <div class="post-content">
@@ -31,11 +36,11 @@ import Comment from "../components/Comment.vue";
 export default {
   name: "Post",
   components: {
-      Comment,
+    Comment,
   },
   data() {
     return {
-        posts: [],
+      posts: [],
     };
   },
   methods: {
@@ -47,26 +52,31 @@ export default {
       return day + "/" + month + "/" + year;
     },
     deletePost(postId) {
-      let userId = localStorage.getItem('userId');
-      let Token = localStorage.getItem('token');
+      let userId = localStorage.getItem("userId");
+      let Token = localStorage.getItem("token");
       if (userId !== null) {
-        fetch("http://localhost:3000/api/post/" + postId, {
-          method: "DELETE",
-          headers: {
-            Authorization: "Bearer " + Token,
-          },
-        })
-        .then((res) => res.json())
-        .then((res) => {
-          console.log(res)
+        var result = confirm("Voulez-vous vraiment supprimer ce post ?");
+        if (result == true) {
+          event.preventDefault();
+          fetch("http://localhost:3000/api/post/" + postId, {
+            method: "DELETE",
+            headers: {
+              Authorization: "Bearer " + Token,
+            },
+          })
+            .then((res) => res.json())
+            .then((res) => {
+              console.log(res);
+              this.$router.go();
+            })
+            .catch((error) => {
+              return error;
+            });
+        } else {
           this.$router.go();
-        })
-        .catch((error) => {
-          return error;
-        })
+        }
       }
-
-    }
+    },
   },
   mounted() {
     let Token = localStorage.getItem("token");
@@ -113,7 +123,7 @@ export default {
   position: relative;
 }
 
-.post-header:hover .post-header__delete{
+.post-header:hover .post-header__delete {
   visibility: visible;
 }
 
@@ -148,8 +158,7 @@ export default {
 }
 
 .post-header__delete {
-  height: 1rem;
-  width: 1rem;
+  height: 0.7rem;
   position: absolute;
   right: 1rem;
   top: 1rem;
