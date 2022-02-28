@@ -18,7 +18,6 @@ export default {
 
 <style>
 footer {
-  background-color:rgba(255, 255, 255, 0.02);
   display: flex;
   justify-content: center;
   position: absolute;

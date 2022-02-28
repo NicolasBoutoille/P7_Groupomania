@@ -12,6 +12,7 @@
         </h2>
         <p class="dateOfPost">Posté le {{ formatDate(post.dateOfPost) }}</p>
       </div>
+      <img @click="deletePost(post.idPosts)" class="post-header__delete" src="../assets/x-solid.svg" alt="Supprimer le post">
     </div>
     <div class="post-line"></div>
     <div class="post-content">
@@ -21,7 +22,7 @@
         <p></p>
       </div>
     </div>
-    <Comment />
+    <Comment :post="post.idPosts"></Comment>
   </div>
 </template>
 
@@ -40,11 +41,32 @@ export default {
   methods: {
     formatDate(input) {
       var datePart = input.match(/\d+/g),
-        year = datePart[0].substring(2), // get only two digits
+        year = datePart[0].substring(2),
         month = datePart[1],
         day = datePart[2];
       return day + "/" + month + "/" + year;
     },
+    deletePost(postId) {
+      let userId = localStorage.getItem('userId');
+      let Token = localStorage.getItem('token');
+      if (userId !== null) {
+        fetch("http://localhost:3000/api/post/" + postId, {
+          method: "DELETE",
+          headers: {
+            Authorization: "Bearer " + Token,
+          },
+        })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res)
+          this.$router.go();
+        })
+        .catch((error) => {
+          return error;
+        })
+      }
+
+    }
   },
   mounted() {
     let Token = localStorage.getItem("token");
@@ -79,7 +101,7 @@ export default {
 <style>
 .post {
   margin: 1rem;
-  max-width: 450px;
+  max-width: 6500px;
   background: white;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -88,6 +110,11 @@ export default {
 .post-header {
   display: flex;
   padding: 0.5rem;
+  position: relative;
+}
+
+.post-header:hover .post-header__delete{
+  visibility: visible;
 }
 
 .picture-container {
@@ -120,6 +147,16 @@ export default {
   font-size: 0.8rem;
 }
 
+.post-header__delete {
+  height: 1rem;
+  width: 1rem;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  visibility: hidden;
+  cursor: pointer;
+}
+
 .post-line {
   width: 100%;
   height: 0;
@@ -134,13 +171,13 @@ export default {
 .post-content__gif {
   display: flex;
   justify-content: center;
-  margin: 1rem;
-  max-width: 400px;
+  margin: 1rem auto;
+  width: 100%;
   border-radius: 5%;
   overflow: hidden;
 }
 
 .post-content__gif img {
-  max-width: 400px;
+  width: 500px;
 }
 </style>

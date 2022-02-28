@@ -107,6 +107,62 @@ export default {
 </script>
 
 <style scoped>
+.card {
+  margin: 1rem;
+  width: 540px;
+  background: white;
+  border-radius: 10px;
+  padding: 32px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.card__title {
+  text-align: center;
+  font-weight: 800;
+}
+
+.card__subtitle {
+  text-align: center;
+  color: #666;
+  font-weight: 500;
+}
+
+.button {
+  background-color: #091f43;
+  color: white;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 15px;
+  border: none;
+  width: 100%;
+  padding: 16px;
+  transition: 0.4s filter;
+}
+
+.card__action {
+  color: #C2595D;
+  text-decoration: underline;
+}
+
+.card__action:hover {
+  cursor: pointer;
+}
+
+.button:hover {
+  cursor: pointer;
+  filter: brightness(0.85);
+}
+
+.button--disabled {
+  background: #cecece;
+  color: white;
+}
+
+.button--disabled:hover {
+  cursor: not-allowed;
+  background: #cecece;
+}
+
 .form-row {
   position: relative;
   display: flex;

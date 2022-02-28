@@ -14,7 +14,7 @@ exports.getAllComments = (req, res, next) => {
 
 // Get comment by ID
 exports.getOneComment = (req, res, next) => {
-    const sql = 'SELECT * FROM comments LEFT JOIN users ON comments.idUsers = users.idUsers WHERE idPosts = ? ORDER BY dateOfComment DESC;';
+    const sql = 'SELECT * FROM comments LEFT JOIN users ON comments.idUsers = users.idUsers WHERE idPosts = ? ORDER BY dateOfComment ASC;';
     const postId = req.params.id;
     db.query(sql, postId, (err, result) => {
         if (err) {
