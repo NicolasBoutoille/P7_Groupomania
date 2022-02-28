@@ -1,4 +1,5 @@
 <template>
+  <Header />
   <header>
     <router-link to="/profile">Profil</router-link>
     <span class="logout" @click="logout()"> Déconnexion </span>
@@ -10,20 +11,24 @@
       <div></div>
     </div>
   </main>
+  <Footer />
 </template>
 
 <script>
+import Header from '../components/Header.vue'
+import Footer from '../components/Footer.vue'
 import CreatePost from "../components/CreatePost.vue";
 import Post from "../components/Post.vue";
 export default {
   name: "Home",
   components: {
+    Header,
+    Footer,
     CreatePost,
     Post,
   },
   data() {
-    return {
-    };
+    return {};
   },
   methods: {
     logout() {
@@ -35,7 +40,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .logout {
   position: absolute;
   top: 0px;

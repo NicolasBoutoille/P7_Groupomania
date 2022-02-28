@@ -1,4 +1,5 @@
 <template>
+  <Header/>
   <header>
     <router-link to="/home">Home</router-link>
     <span class="logout" @click="logout()"> Déconnexion </span>
@@ -57,11 +58,18 @@
       />
     </form>
   </div>
+  <Footer/>
 </template>
 
 <script>
+import Header from '../components/Header.vue'
+import Footer from '../components/Footer.vue'
 export default {
   name: "Profile",
+  components: {
+    Header,
+    Footer,
+  },
   data() {
     return {
       user: {
@@ -139,7 +147,7 @@ export default {
       if (result == true ){
         event.preventDefault();
         this.deleteProfil();
-        this.logout();
+        this.logout()
       } else {
         this.$router.go();
       }
@@ -193,7 +201,32 @@ export default {
 };
 </script>
 
-<style >
+<style scoped>
+.logout {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  margin: 2.5rem 3rem;
+  padding: 0.3rem 0.5rem;
+  color: white;
+  background: #c2595d;
+  font-weight: 500;
+  border-radius: 10px;
+}
+.logout:hover {
+  cursor: pointer;
+  filter: brightness(0.85);
+}
+a {
+  position: absolute;
+  top: 0px;
+  right: 8rem;
+  margin: 2.5rem 3rem;
+  padding: 0.3rem 0.5rem;
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+}
 .container {
   background: #ececec;
   border-radius: 10px;

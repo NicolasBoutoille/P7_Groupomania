@@ -1,4 +1,5 @@
 <template>
+  <Header/>
   <main>
     <div class="card">
       <h1 class="card__title">Inscription</h1>
@@ -53,11 +54,19 @@
       </form>
     </div>
   </main>
+  <Footer/>
 </template>
 
 <script>
+import Header from '../components/Header.vue'
+import Footer from '../components/Footer.vue'
+
 export default {
   name: "Signup",
+  components: {
+    Header,
+    Footer,
+  },
   data: function () {
     return {
       email: "",
