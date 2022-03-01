@@ -12,12 +12,7 @@
         </h2>
         <p class="dateOfPost">Posté le {{ formatDate(post.dateOfPost) }}</p>
       </div>
-      <img
-        @click="deletePost(post.idPosts)"
-        class="post-header__delete"
-        src="../assets/x.png"
-        alt="Supprimer le post"
-      />
+      <font-awesome-icon icon="xmark" class="post-header__delete" @click="deletePost(post.idPosts)"/>
     </div>
     <div class="post-line"></div>
     <div class="post-content">
@@ -159,7 +154,6 @@ export default {
 }
 
 .post-header__delete {
-  height: 0.7rem;
   position: absolute;
   right: 1rem;
   top: 1rem;

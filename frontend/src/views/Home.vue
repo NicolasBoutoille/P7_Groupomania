@@ -1,8 +1,9 @@
 <template>
   <Header />
   <header>
-    <router-link to="/profile">Profil</router-link>
-    <span class="logout" @click="logout()"> Déconnexion </span>
+    <!-- <router-link to="/profile"><font-awesome-icon icon="user" class="profil" /></router-link> -->
+    <font-awesome-icon icon="arrow-right-from-bracket" class="logout" @click="logout()"/>
+    <font-awesome-icon icon="user" class="user" @click="profile()"/>
   </header>
   <main>
     <div class="container">
@@ -36,6 +37,9 @@ export default {
       localStorage.removeItem("userId");
       this.$router.push("/");
     },
+    profile() {
+      this.$router.push("/profile");
+    }
   },
 };
 </script>
@@ -43,14 +47,14 @@ export default {
 <style scoped>
 .logout {
   position: absolute;
-  top: 0px;
-  right: 0px;
-  margin: 2.5rem 3rem;
+  top: 2rem;
+  right: 2rem;
+  height: 1.5rem;
   padding: 0.3rem 0.5rem;
   color: white;
   background: #c2595d;
   font-weight: 500;
-  border-radius: 10px;
+  border-radius: 0.6rem;
 }
 
 .logout:hover {
@@ -58,15 +62,19 @@ export default {
   filter: brightness(0.85);
 }
 
-a {
+.user {
   position: absolute;
-  top: 0px;
-  right: 8rem;
-  margin: 2.5rem 3rem;
+  top: 2rem;
+  right: 5.5rem;
+  height: 1.5rem;
   padding: 0.3rem 0.5rem;
   color: white;
   font-weight: 500;
-  text-decoration: none;
+}
+
+.user:hover {
+  cursor: pointer;
+  filter: brightness(0.85);
 }
 
 .container {

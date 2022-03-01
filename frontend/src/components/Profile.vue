@@ -1,8 +1,8 @@
 <template>
   <Header/>
   <header>
-    <router-link to="/home">Home</router-link>
-    <span class="logout" @click="logout()"> Déconnexion </span>
+    <font-awesome-icon icon="arrow-right-from-bracket" class="logout" @click="logout()"/>
+    <font-awesome-icon icon="house" class="home" @click="home()"/>
   </header>
   <div class="profil">
     <h1>{{user.username}}</h1>
@@ -90,6 +90,9 @@ export default {
       localStorage.removeItem("token");
       localStorage.removeItem("userId");
       this.$router.push("/");
+    },
+    home() {
+      this.$router.push("/home");
     },
     modifyPicture(event) {
         this.newImage = event.target.files[0];
@@ -205,28 +208,34 @@ export default {
 <style scoped>
 .logout {
   position: absolute;
-  top: 0px;
-  right: 0px;
-  margin: 2.5rem 3rem;
+  top: 2rem;
+  right: 2rem;
+  height: 1.5rem;
   padding: 0.3rem 0.5rem;
   color: white;
   background: #c2595d;
   font-weight: 500;
-  border-radius: 10px;
+  border-radius: 0.6rem;
 }
+
 .logout:hover {
   cursor: pointer;
   filter: brightness(0.85);
 }
-a {
+
+.home {
   position: absolute;
-  top: 0px;
-  right: 8rem;
-  margin: 2.5rem 3rem;
+  top: 2rem;
+  right: 5.5rem;
+  height: 1.5rem;
   padding: 0.3rem 0.5rem;
   color: white;
   font-weight: 500;
-  text-decoration: none;
+}
+
+.home:hover {
+  cursor: pointer;
+  filter: brightness(0.85);
 }
 .profil {
   display: flex;

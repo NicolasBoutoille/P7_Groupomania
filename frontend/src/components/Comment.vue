@@ -11,12 +11,13 @@
       <div class="comment-list__picture">
         <img :src="comment.profilePicture" alt="Photo de profil" />
       </div>
-      <img
+      <font-awesome-icon icon="xmark" class="comment-list__delete" @click="deleteComment(comment.idComments)"/>
+      <!-- <img
         @click="deleteComment(comment.idComments)"
         class="comment-list__delete"
         src="../assets/x.png"
         alt="Supprimer le commentaire"
-      />
+      /> -->
       <div class="comment-list__content">
         <h3>{{ comment.username }}</h3>
         <p>{{ comment.content }}</p>
@@ -163,7 +164,6 @@ export default {
   margin-right: 1rem;
 }
 .comment-list__delete {
-  height: 0.7rem;
   position: absolute;
   right: 0.5rem;
   top: 0.5rem;
