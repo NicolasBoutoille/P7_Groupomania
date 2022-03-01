@@ -9,11 +9,7 @@
     <div class="profil-image">
       <label for="image">
         <img class="image" :src="user.profilePicture" alt="Photo de profil" />
-        <img
-          class="add-image"
-          src="../assets/add-images.svg"
-          alt="Ajouter une photo"
-        />
+        <font-awesome-icon icon="image" class="add-image"/>
       </label>
       <input @change="modifyPicture($event)" class="input-image" id="image" type="file" name="image" accept="image/png, image/jpg, image/jpeg"/>
     </div>
@@ -262,7 +258,7 @@ export default {
 }
 .profil-image:hover {
   cursor: pointer;
-  filter: brightness(0.6);
+  filter: brightness(0.8);
 }
 .profil-image:hover .add-image {
   visibility: visible;
@@ -280,6 +276,8 @@ export default {
   left: 50px;
   transform: translate(-50%, -50%);
   visibility: hidden;
+  color: white;
+  height: 1.5rem;
 }
 .input-image {
     display: none;

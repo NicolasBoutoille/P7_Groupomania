@@ -1,7 +1,6 @@
 <template>
   <Header />
   <header>
-    <!-- <router-link to="/profile"><font-awesome-icon icon="user" class="profil" /></router-link> -->
     <font-awesome-icon icon="arrow-right-from-bracket" class="logout" @click="logout()"/>
     <font-awesome-icon icon="user" class="user" @click="profile()"/>
   </header>
