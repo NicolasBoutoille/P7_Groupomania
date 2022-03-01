@@ -238,12 +238,12 @@ export default {
   flex-direction: column;
   align-items: center;
   background: white;
-  width: 100%;
+  width: 80%;
+  max-width: 650px;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 1rem;
   margin: 2rem auto;
-  width: 60%;
 }
 .profil h1 {
   font-size: 2rem;

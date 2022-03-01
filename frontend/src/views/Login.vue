@@ -9,7 +9,7 @@
           >Créer un compte</span
         >
       </p>
-      <form class="form">
+      <form class="form" @submit.prevent="login()">
         <div class="form-row">
           <input
             v-model="email"
@@ -35,7 +35,6 @@
         </div>
         <div class="form-row">
           <input
-            @click="login()"
             type="submit"
             value="Connexion"
             class="button"

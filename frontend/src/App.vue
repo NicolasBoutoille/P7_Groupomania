@@ -23,7 +23,6 @@ export default {
 
 body {
   background-image: linear-gradient(62deg, #091F43 0%, #C2595D 200%);
-  /* backdrop-filter: blur(20px) opacity(0.8); */
 }
 
 #app {
