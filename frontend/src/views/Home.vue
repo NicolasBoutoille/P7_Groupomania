@@ -76,7 +76,8 @@ a {
   background: #ececec;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  padding: 1rem;
+  padding: 2rem;
   max-width: 650px;
+  width: 100%;
 }
 </style>

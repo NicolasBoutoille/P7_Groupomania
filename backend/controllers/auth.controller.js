@@ -10,7 +10,6 @@ exports.signUp = (req, res, next) => {
                 ...req.body,
                 password: hash
             };
-            console.log(req.body);
             const sql = 'INSERT INTO users SET ?';
             db.query(sql, user, (err, result) => {
                 if (!result) {
@@ -42,7 +41,6 @@ exports.login = (req, res, next) => {
             const password = userFounded.password;
             bcrypt.compare(req.body.password, password)
                 .then(valid => {
-                    //console.log(valid);
                     if (!valid) {
                         return res.status(401).json({ err: 'Mot de passe incorrect !' });
                     }

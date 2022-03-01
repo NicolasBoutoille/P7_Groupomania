@@ -1,32 +1,38 @@
 <template>
+  <header>
     <img
-        class="logo"
-        src="../assets/icon-left-font-monochrome-white.svg"
-        alt="Logo Groupomania"
+      class="logo"
+      src="../assets/icon-left-font-monochrome-white.svg"
+      alt="Logo Groupomania"
     />
     <div class="line"></div>
+  </header>
 </template>
 
 <script>
 export default {
-    name: 'Header'
-}
+  name: "Header",
+};
 </script>
 
-<style>
+<style scoped>
 header {
   width: 100%;
 }
 
-.logo {
-  margin: 2rem 3rem;
-  width: 200px;
+img {
+  margin: 2rem;
+  max-width: 200px;
 }
 
 .line {
   margin: auto;
   width: 85%;
   height: 0;
-  border: 2px solid #C2595D;
+  border: 2px solid #c2595d;
+}
+
+@media screen and (max-width:767px) {
+
 }
 </style>

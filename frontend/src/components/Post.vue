@@ -111,7 +111,8 @@ export default {
 <style>
 .post {
   margin: 1rem;
-  max-width: 6500px;
+  width: 100%;
+  max-width: 650px;
   background: white;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -187,6 +188,8 @@ export default {
 }
 
 .post-content__gif img {
-  width: 500px;
+  max-width: 500px;
+  width: 100%;
+
 }
 </style>

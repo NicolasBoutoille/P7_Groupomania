@@ -21,7 +21,7 @@ footer {
   display: flex;
   justify-content: center;
   position: absolute;
-  bottom: 0;
+  bottom: 0.5rem;
   width: 100%;
   color: white;
   font-style: italic;

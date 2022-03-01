@@ -1,11 +1,13 @@
 <template>
-  <Header/>
+  <Header />
   <main>
     <div class="card">
       <h1 class="card__title">Connexion</h1>
       <p class="card__subtitle">
         Tu n'as pas encore de compte ?
-        <span class="card__action" @click="switchToCreateAccount()">Créer un compte</span>
+        <span class="card__action" @click="switchToCreateAccount()"
+          >Créer un compte</span
+        >
       </p>
       <form class="form">
         <div class="form-row">
@@ -28,7 +30,9 @@
             required
           />
         </div>
-        <div class="form-row__error" v-if="errors.length > 0">{{ errors }}</div>
+        <div class="form-row__error" v-if="errors.length > 0">
+          {{ errors }}
+        </div>
         <div class="form-row">
           <input
             @click="login()"
@@ -41,12 +45,12 @@
       </form>
     </div>
   </main>
-  <Footer/>
+  <Footer />
 </template>
 
 <script>
-import Header from '../components/Header.vue'
-import Footer from '../components/Footer.vue'
+import Header from "../components/Header.vue";
+import Footer from "../components/Footer.vue";
 export default {
   name: "Login",
   components: {
@@ -107,9 +111,13 @@ export default {
 </script>
 
 <style scoped>
+main {
+  display: flex;
+}
 .card {
-  margin: 1rem;
-  width: 540px;
+  vertical-align: middle;
+  margin: auto;
+  width: 600px;
   background: white;
   border-radius: 10px;
   padding: 32px;
@@ -140,7 +148,7 @@ export default {
 }
 
 .card__action {
-  color: #C2595D;
+  color: #c2595d;
   text-decoration: underline;
 }
 

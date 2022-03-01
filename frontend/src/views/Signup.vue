@@ -122,7 +122,7 @@ export default {
 <style scoped>
 .card {
   margin: 1rem;
-  width: 540px;
+  width: 600px;
   background: white;
   border-radius: 10px;
   padding: 32px;

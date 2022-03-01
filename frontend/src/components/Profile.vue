@@ -228,14 +228,6 @@ a {
   font-weight: 500;
   text-decoration: none;
 }
-.container {
-  background: #ececec;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  padding: 1rem;
-  margin: 2rem auto;
-  width: 80%;
-}
 .profil {
   display: flex;
   flex-direction: column;
@@ -286,7 +278,8 @@ a {
 .profil-info {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 100%;
+  max-width: 350px;
   margin: 1rem;
 }
 .profil-info input {
