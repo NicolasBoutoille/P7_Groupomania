@@ -1,5 +1,5 @@
 <template>
-  <form class="post-create">
+  <form class="post-create" @submit.prevent="createPost()">
     <div class="post-create__top">
       <img src="../assets/blank-profile.png" alt="Photo de profil" />
       <input
@@ -17,7 +17,6 @@
         accept="image/png, image/jpeg, image/jpg, image/gif"
       />
       <input
-        @click="createPost()"
         type="submit"
         value="Poster"
         class="post-create__btn"

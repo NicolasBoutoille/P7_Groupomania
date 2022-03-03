@@ -7,7 +7,7 @@
         Tu as déjà un compte ?
         <span class="card__action" @click="switchToLogin()">Se connecter</span>
       </p>
-      <form class="form">
+      <form class="form" @submit.prevent="createAccount()">
         <div class="form-row">
           <input
             v-model="email"
@@ -44,7 +44,6 @@
         </div>
         <div class="form-row">
           <input
-            @click="createAccount()"
             type="submit"
             value="Créer mon compte"
             class="button"
