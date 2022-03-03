@@ -33,7 +33,9 @@ export default {
   methods: {
     logout() {
       localStorage.removeItem("token");
-      localStorage.removeItem("userId");
+      // localStorage.removeItem("userId");
+      this.$store.commit('RESET_USER_INFOS');
+      console.log(this.$store.state.user);
       this.$router.push("/");
     },
     profile() {

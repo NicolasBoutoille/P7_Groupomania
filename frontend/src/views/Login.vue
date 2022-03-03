@@ -95,9 +95,12 @@ export default {
           } else if (res.err) {
             this.errors = res.err;
           } else {
-            localStorage.setItem("userId", res.userId);
+            // localStorage.setItem("userId", res.userId);
             localStorage.setItem("token", res.token);
             this.errors = "";
+            let userId = res.userId;
+            let token = res.token;
+            this.$store.dispatch('getUser', {userId, token})
             this.$router.push("/home");
           }
         })

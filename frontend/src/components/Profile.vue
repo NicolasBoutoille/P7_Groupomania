@@ -173,7 +173,7 @@ export default {
     }
   },
   mounted() {
-    let userId = localStorage.getItem("userId");
+    let userId = this.$store.state.user.userId;
     let Token = localStorage.getItem("token");
     if (userId !== null) {
       fetch("http://localhost:3000/api/user/" + userId, {

@@ -12,7 +12,7 @@
         </h2>
         <p class="dateOfPost">Posté le {{ formatDate(post.dateOfPost) }}</p>
       </div>
-      <font-awesome-icon icon="xmark" class="post-header__delete" @click="deletePost(post.idPosts)"/>
+      <font-awesome-icon icon="xmark" class="post-header__delete" @click="deletePost(post.idPosts)" v-if="(post.idUsers == user.idUsers)||(user.isAdmin == 1)"/>
     </div>
     <div class="post-line"></div>
     <div class="post-content">
@@ -28,6 +28,7 @@
 
 <script>
 import Comment from "../components/Comment.vue";
+import { mapState } from 'vuex';
 export default {
   name: "Post",
   components: {
@@ -38,6 +39,9 @@ export default {
       posts: [],
     };
   },
+  computed: {
+    ...mapState(['user'])
+  },
   methods: {
     formatDate(input) {
       var datePart = input.match(/\d+/g),
@@ -47,7 +51,7 @@ export default {
       return day + "/" + month + "/" + year;
     },
     deletePost(postId) {
-      let userId = localStorage.getItem("userId");
+      let userId = this.user.idUsers;
       let Token = localStorage.getItem("token");
       if (userId !== null) {
         var result = confirm("Voulez-vous vraiment supprimer ce post ?");

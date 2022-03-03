@@ -1,7 +1,7 @@
 <template>
   <form class="post-create" @submit.prevent="createPost()">
     <div class="post-create__top">
-      <img src="../assets/blank-profile.png" alt="Photo de profil" />
+      <img :src="user.profilePicture" alt="Photo de profil" />
       <input
         v-model="textPublication"
         class="post-create__text"
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   name: "CreatePost",
   data() {
@@ -33,6 +34,9 @@ export default {
       textPublication: "",
       imagePublication: "",
     };
+  },
+  computed: {
+    ...mapState(['user'])
   },
   methods: {
     processFile(event) {
@@ -43,7 +47,7 @@ export default {
       let formData = new FormData();
       formData.append("image", this.imagePublication);
       formData.append("content", this.textPublication);
-      formData.append("idUsers", localStorage.getItem("userId"));
+      formData.append("idUsers", this.user.idUsers);
       fetch("http://localhost:3000/api/post", {
         method: "POST",
         headers: {
