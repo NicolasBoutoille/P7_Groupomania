@@ -60,6 +60,7 @@
 <script>
 import Header from '../components/Header.vue'
 import Footer from '../components/Footer.vue'
+import { mapState } from 'vuex'
 export default {
   name: "Profile",
   components: {
@@ -68,23 +69,21 @@ export default {
   },
   data() {
     return {
-      user: {
-        idUsers: "",
-        username: "",
-        email: "",
-        isAdmin: "",
-        profilePicture: "",
-      },
       newUsername: null,
       newEmail: null,
       newPassword: null,
       newImage: null,
     };
   },
+  computed: {
+    ...mapState(['user'])
+  },
   methods: {
     logout() {
       localStorage.removeItem("token");
-      localStorage.removeItem("userId");
+      // localStorage.removeItem("userId");
+      this.$store.commit('RESET_USER_INFOS');
+      console.log(this.$store.state.user);
       this.$router.push("/");
     },
     home() {
@@ -94,7 +93,7 @@ export default {
         this.newImage = event.target.files[0];
         console.log(this.newImage);
         let Token = localStorage.getItem("token");
-        let userId = localStorage.getItem("userId");
+        let userId = this.user.idUsers;
         let formData = new FormData();
         formData.append("image", this.newImage);
         if (userId !== null) {
@@ -121,7 +120,7 @@ export default {
         email: this.newEmail,
         password: this.newPassword,
       };
-      let userId = localStorage.getItem("userId");
+      let userId = this.user.idUsers;
       let Token = localStorage.getItem("token");
       if (userId !== null && data !== "") {
         fetch("http://localhost:3000/api/user/" + userId, {
@@ -153,7 +152,7 @@ export default {
       }
     },
     deleteProfil() {
-      let userId = localStorage.getItem("userId");
+      let userId = this.user.idUsers;
       let Token = localStorage.getItem("token");
       if (userId !== null) {
         fetch("http://localhost:3000/api/user/" + userId, {
@@ -170,32 +169,6 @@ export default {
             return error;
           })
       }
-    }
-  },
-  mounted() {
-    let userId = this.$store.state.user.userId;
-    let Token = localStorage.getItem("token");
-    if (userId !== null) {
-      fetch("http://localhost:3000/api/user/" + userId, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + Token,
-        },
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          (this.user.idUsers = res.result[0].idUsers),
-            (this.user.username = res.result[0].username),
-            (this.user.email = res.result[0].email),
-            (this.user.isAdmin = res.result[0].isAdmin),
-            (this.user.profilePicture = res.result[0].profilePicture);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
-      this.$router.push("/");
     }
   },
 };

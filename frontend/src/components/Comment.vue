@@ -11,13 +11,13 @@
       <div class="comment-list__picture">
         <img :src="comment.profilePicture" alt="Photo de profil" />
       </div>
-      <font-awesome-icon icon="xmark" class="comment-list__delete" @click="deleteComment(comment.idComments)"/>
+      <font-awesome-icon icon="xmark" class="comment-list__delete" @click="deleteComment(comment.idComments)" v-if="(comment.idUsers == user.idUsers) || (user.isAdmin == 1)"/>
       <div class="comment-list__content">
         <h3>{{ comment.username }}</h3>
         <p>{{ comment.content }}</p>
       </div>
     </div>
-    <form class="comment-add" :action="showComments()">
+    <form class="comment-add" @submit.prevent>
       <input
         @keyup.enter="createComment()"
         v-model="commentaire"
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   name: "Comment",
   props: ["post"],
@@ -37,6 +38,9 @@ export default {
       comments: [],
       commentaire: "",
     };
+  },
+  computed: {
+    ...mapState(['user'])
   },
   methods: {
     showComments(postId) {
@@ -65,9 +69,12 @@ export default {
           console.log(error);
         });
     },
+    test() {
+      console.log(this.user.idUsers);
+    },
     createComment() {
       let Token = localStorage.getItem("token");
-      let userId = localStorage.getItem("userId");
+      let userId = this.user.idUsers;
       let postId = this.post;
       const data = {
         content: this.commentaire,
@@ -95,7 +102,7 @@ export default {
       }
     },
     deleteComment(commentId) {
-      let userId = localStorage.getItem("userId");
+      let userId = this.user.idUsers;
       let Token = localStorage.getItem("token");
       if (userId !== null) {
         fetch("http://localhost:3000/api/comment/" + commentId, {

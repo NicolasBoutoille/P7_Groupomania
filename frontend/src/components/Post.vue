@@ -12,7 +12,12 @@
         </h2>
         <p class="dateOfPost">Posté le {{ formatDate(post.dateOfPost) }}</p>
       </div>
-      <font-awesome-icon icon="xmark" class="post-header__delete" @click="deletePost(post.idPosts)" v-if="(post.idUsers == user.idUsers)||(user.isAdmin == 1)"/>
+      <font-awesome-icon
+        icon="xmark"
+        class="post-header__delete"
+        @click="deletePost(post.idPosts)"
+        v-if="post.idUsers == user.idUsers || user.isAdmin == 1"
+      />
     </div>
     <div class="post-line"></div>
     <div class="post-content">
@@ -28,7 +33,7 @@
 
 <script>
 import Comment from "../components/Comment.vue";
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 export default {
   name: "Post",
   components: {
@@ -40,7 +45,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(["user"]),
   },
   methods: {
     formatDate(input) {
@@ -51,29 +56,26 @@ export default {
       return day + "/" + month + "/" + year;
     },
     deletePost(postId) {
-      let userId = this.user.idUsers;
       let Token = localStorage.getItem("token");
-      if (userId !== null) {
-        var result = confirm("Voulez-vous vraiment supprimer ce post ?");
-        if (result == true) {
-          event.preventDefault();
-          fetch("http://localhost:3000/api/post/" + postId, {
-            method: "DELETE",
-            headers: {
-              Authorization: "Bearer " + Token,
-            },
+      var result = confirm("Voulez-vous vraiment supprimer ce post ?");
+      if (result == true) {
+        event.preventDefault();
+        fetch("http://localhost:3000/api/post/" + postId, {
+          method: "DELETE",
+          headers: {
+            Authorization: "Bearer " + Token,
+          },
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            console.log(res);
+            this.$router.go();
           })
-            .then((res) => res.json())
-            .then((res) => {
-              console.log(res);
-              this.$router.go();
-            })
-            .catch((error) => {
-              return error;
-            });
-        } else {
-          this.$router.go();
-        }
+          .catch((error) => {
+            return error;
+          });
+      } else {
+        this.$router.go();
       }
     },
   },
@@ -188,6 +190,5 @@ export default {
 .post-content__gif img {
   max-width: 500px;
   width: 100%;
-
 }
 </style>
