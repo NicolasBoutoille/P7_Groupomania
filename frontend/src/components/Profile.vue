@@ -1,17 +1,28 @@
 <template>
-  <Header/>
+  <Header />
   <header>
-    <font-awesome-icon icon="arrow-right-from-bracket" class="logout" @click="logout()"/>
-    <font-awesome-icon icon="house" class="home" @click="home()"/>
+    <font-awesome-icon
+      icon="arrow-right-from-bracket"
+      class="logout"
+      @click="logout()"
+    />
+    <font-awesome-icon icon="house" class="home" @click="home()" />
   </header>
   <div class="profil">
-    <h1>{{user.username}}</h1>
+    <h1>{{ user.username }}</h1>
     <div class="profil-image">
       <label for="image">
         <img class="image" :src="user.profilePicture" alt="Photo de profil" />
-        <font-awesome-icon icon="image" class="add-image"/>
+        <font-awesome-icon icon="image" class="add-image" />
       </label>
-      <input @change="modifyPicture($event)" class="input-image" id="image" type="file" name="image" accept="image/png, image/jpg, image/jpeg"/>
+      <input
+        @change="modifyPicture($event)"
+        class="input-image"
+        id="image"
+        type="file"
+        name="image"
+        accept="image/png, image/jpg, image/jpeg"
+      />
     </div>
     <form class="profil-info">
       <input
@@ -54,13 +65,13 @@
       />
     </form>
   </div>
-  <Footer/>
+  <Footer />
 </template>
 
 <script>
-import Header from '../components/Header.vue'
-import Footer from '../components/Footer.vue'
-import { mapState } from 'vuex'
+import Header from "../components/Header.vue";
+import Footer from "../components/Footer.vue";
+import { mapState } from "vuex";
 export default {
   name: "Profile",
   components: {
@@ -76,13 +87,13 @@ export default {
     };
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(["user"]),
   },
   methods: {
     logout() {
       localStorage.removeItem("token");
       // localStorage.removeItem("userId");
-      this.$store.commit('RESET_USER_INFOS');
+      this.$store.commit("RESET_USER_INFOS");
       console.log(this.$store.state.user);
       this.$router.push("/");
     },
@@ -90,29 +101,28 @@ export default {
       this.$router.push("/home");
     },
     modifyPicture(event) {
-        this.newImage = event.target.files[0];
-        console.log(this.newImage);
-        let Token = localStorage.getItem("token");
-        let userId = this.user.idUsers;
-        let formData = new FormData();
-        formData.append("image", this.newImage);
-        if (userId !== null) {
-            fetch("http://localhost:3000/api/user/" + userId, {
-                method: "PUT",
-                headers: {
-                    Authorization: "Bearer " + Token,
-                },
-                body: formData,
-            })
-            .then((res) => res.json())
-            .then((res) => {
-                this.$router.go();
-                return res;
-            })
-            .catch((error) => {
-                return error;
-            })
-        }
+      this.newImage = event.target.files[0];
+      let token = localStorage.getItem("token");
+      let userId = this.user.idUsers;
+      let formData = new FormData();
+      formData.append("image", this.newImage);
+      if (userId !== null) {
+        fetch("http://localhost:3000/api/user/" + userId, {
+          method: "PUT",
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+          body: formData,
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            this.$store.dispatch('getUser', {userId, token});
+            return res;
+          })
+          .catch((error) => {
+            return error;
+          });
+      }
     },
     modifyProfil() {
       const data = {
@@ -121,20 +131,20 @@ export default {
         password: this.newPassword,
       };
       let userId = this.user.idUsers;
-      let Token = localStorage.getItem("token");
+      let token = localStorage.getItem("token");
       if (userId !== null && data !== "") {
         fetch("http://localhost:3000/api/user/" + userId, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization: "Bearer " + Token,
+            Authorization: "Bearer " + token,
           },
           body: JSON.stringify(data),
         })
           .then((res) => res.json())
           .then((res) => {
             console.log(res);
-            this.$router.go();
+            this.$store.dispatch('getUser', {userId, token});
           })
           .catch((error) => {
             return error;
@@ -143,33 +153,31 @@ export default {
     },
     confirmation() {
       var result = confirm("Voulez-vous vraiment supprimer votre compte ?");
-      if (result == true ){
+      if (result == true) {
         event.preventDefault();
         this.deleteProfil();
-        this.logout()
-      } else {
-        this.$router.go();
-      }
+        this.logout();
+       }
     },
     deleteProfil() {
       let userId = this.user.idUsers;
-      let Token = localStorage.getItem("token");
+      let token = localStorage.getItem("token");
       if (userId !== null) {
         fetch("http://localhost:3000/api/user/" + userId, {
-          method:"DELETE",
+          method: "DELETE",
           headers: {
-            Authorization: "Bearer " + Token,
+            Authorization: "Bearer " + token,
           },
         })
           .then((res) => res.json())
           .then((res) => {
-            console.log(res)
+            console.log(res);
           })
           .catch((error) => {
             return error;
-          })
+          });
       }
-    }
+    },
   },
 };
 </script>
@@ -253,7 +261,7 @@ export default {
   height: 1.5rem;
 }
 .input-image {
-    display: none;
+  display: none;
 }
 .profil-info {
   display: flex;

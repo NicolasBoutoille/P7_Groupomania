@@ -43,7 +43,7 @@ export default {
       this.imagePublication = event.target.files[0];
     },
     createPost() {
-      let Token = localStorage.getItem("token");
+      let token = localStorage.getItem("token");
       let formData = new FormData();
       formData.append("image", this.imagePublication);
       formData.append("content", this.textPublication);
@@ -51,13 +51,12 @@ export default {
       fetch("http://localhost:3000/api/post", {
         method: "POST",
         headers: {
-          Authorization: "Bearer " + Token,
+          Authorization: "Bearer " + token,
         },
         body: formData,
       })
         .then((res) => res.json())
         .then((res) => {
-          this.$router.go();
           return res;
         })
         .catch((error) => {

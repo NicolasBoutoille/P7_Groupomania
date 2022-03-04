@@ -102,7 +102,6 @@ export default {
             let token = res.token;
             this.$store.dispatch('getUser', {userId, token})
             this.$router.push("/home");
-            console.log(this.$store.state.user);
           }
         })
         .catch((error) => {

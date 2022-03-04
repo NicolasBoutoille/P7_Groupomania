@@ -6,6 +6,7 @@
   </header>
   <main>
     <div class="container">
+      <h1 @click="state()"> Click </h1>
       <CreatePost />
       <Post />
       <div></div>
@@ -31,6 +32,9 @@ export default {
     return {};
   },
   methods: {
+    state(){
+      console.log(this.$store.state.user)
+    },
     logout() {
       localStorage.removeItem("token");
       // localStorage.removeItem("userId");

@@ -28,6 +28,8 @@ main {
 h1 {
   font-size: 3rem;
   color: white;
+  margin: auto;
+  text-align: center;
 }
 a {
   text-decoration: none;

@@ -1,5 +1,5 @@
 <template>
-  <div class="post" v-for="post in posts" :key="post.idPosts">
+  <div class="post" v-for="post in posts" :key="post">
     <div class="post-header">
       <div class="post-header__picture">
         <div class="picture-container">
@@ -48,6 +48,9 @@ export default {
     ...mapState(["user"]),
   },
   methods: {
+    forceRerender() {
+      this.post += 1;
+    },
     formatDate(input) {
       var datePart = input.match(/\d+/g),
         year = datePart[0].substring(2),
@@ -56,36 +59,34 @@ export default {
       return day + "/" + month + "/" + year;
     },
     deletePost(postId) {
-      let Token = localStorage.getItem("token");
+      let token = localStorage.getItem("token");
       var result = confirm("Voulez-vous vraiment supprimer ce post ?");
       if (result == true) {
         event.preventDefault();
         fetch("http://localhost:3000/api/post/" + postId, {
           method: "DELETE",
           headers: {
-            Authorization: "Bearer " + Token,
+            Authorization: "Bearer " + token,
           },
         })
           .then((res) => res.json())
           .then((res) => {
             console.log(res);
-            this.$router.go();
+            this.$forceRerender();
           })
           .catch((error) => {
             return error;
           });
-      } else {
-        this.$router.go();
       }
     },
   },
-  mounted() {
-    let Token = localStorage.getItem("token");
+  created() {
+    let token = localStorage.getItem("token");
     fetch("http://localhost:3000/api/post", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + Token,
+        Authorization: "Bearer " + token,
       },
     })
       .then((res) => res.json())

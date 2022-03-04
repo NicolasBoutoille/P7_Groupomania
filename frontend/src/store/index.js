@@ -13,7 +13,10 @@ export default createStore({
       }
     };
   },
-  plugins: [createPersistedState()],
+  plugins: [createPersistedState({
+    paths: ["user"]
+  })
+],
   getters: {
   },
   mutations: {
@@ -32,7 +35,6 @@ export default createStore({
         state.user.username = res.result[0].username,
         state.user.profilePicture = res.result[0].profilePicture,
         state.user.isAdmin = res.result[0].isAdmin;
-        console.log(state.user);
       })
       .catch((error) => {
         return error;
