@@ -1,6 +1,10 @@
 <template>
   <div class="comment">
-    <button @click="showComments(post)" class="comment-display">
+    <button
+      v-if="comments.length < 1"
+      @click="showComments(post)"
+      class="comment-display"
+    >
       Afficher les commentaires
     </button>
     <div
@@ -11,7 +15,12 @@
       <div class="comment-list__picture">
         <img :src="comment.profilePicture" alt="Photo de profil" />
       </div>
-      <font-awesome-icon icon="xmark" class="comment-list__delete" @click="deleteComment(comment.idComments)" v-if="(comment.idUsers == user.idUsers) || (user.isAdmin == 1)"/>
+      <font-awesome-icon
+        icon="xmark"
+        class="comment-list__delete"
+        @click="deleteComment(comment.idComments)"
+        v-if="comment.idUsers == user.idUsers || user.isAdmin == 1"
+      />
       <div class="comment-list__content">
         <h3>{{ comment.username }}</h3>
         <p>{{ comment.content }}</p>
@@ -29,7 +38,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 export default {
   name: "Comment",
   props: ["post"],
@@ -40,7 +49,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(["user"]),
   },
   methods: {
     showComments(postId) {
@@ -93,6 +102,7 @@ export default {
           .then((res) => res.json())
           .then((res) => {
             console.log(res);
+            this.comments.length = 0;
             this.showComments(postId);
             this.commentaire = "";
           })
@@ -104,6 +114,7 @@ export default {
     deleteComment(commentId) {
       let userId = this.user.idUsers;
       let Token = localStorage.getItem("token");
+      let postId = this.post;
       if (userId !== null) {
         fetch("http://localhost:3000/api/comment/" + commentId, {
           method: "DELETE",
@@ -114,7 +125,8 @@ export default {
           .then((res) => res.json())
           .then((res) => {
             console.log(res);
-            this.$router.go();
+            this.comments.length = 0;
+            this.showComments(postId);
           })
           .catch((error) => {
             return error;
@@ -153,7 +165,7 @@ export default {
   border-radius: 10px;
   position: relative;
 }
-.comment-list:hover .comment-list__delete{
+.comment-list:hover .comment-list__delete {
   visibility: visible;
 }
 .comment-list__picture img {
