@@ -119,6 +119,9 @@ export default {
 </script>
 
 <style scoped>
+main {
+  margin: 5rem auto;
+}
 .card {
   margin: 1rem;
   width: 600px;
@@ -166,13 +169,13 @@ export default {
 }
 
 .button--disabled {
-  background: #737373;
-  color: white;
+  background: #666666;
+  color: #f2f2f2;
 }
 
 .button--disabled:hover {
   cursor: not-allowed;
-  background: #737373;
+  background: #666666;
 }
 
 .form-row {
@@ -195,7 +198,7 @@ export default {
 }
 
 .form-row__input::placeholder {
-  color: #aaaaaa;
+  color: #666666;
 }
 
 .form-error {

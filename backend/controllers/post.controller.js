@@ -98,8 +98,19 @@ exports.deletePost = (req, res, next) => {
             throw err;
         }
         const post = result[0];
-        const filename = post.imageUrl.split('/images/')[1];
-        fs.unlink(`images/${filename}`, () => {
+        if (post.imageUrl !== null) {
+            const filename = post.imageUrl.split('/images/')[1];
+            fs.unlink(`images/${filename}`, () => {
+                const sqlDelete = 'DELETE FROM posts WHERE idPosts = ?';
+                db.query(sqlDelete, postId, (err, result) => {
+                    if (err) {
+                        res.status(404).json({ err });
+                        throw err;
+                    }
+                    res.status(200).json({ message: 'Post supprimé !' })
+                })
+            })
+        } else {
             const sqlDelete = 'DELETE FROM posts WHERE idPosts = ?';
             db.query(sqlDelete, postId, (err, result) => {
                 if (err) {
@@ -108,6 +119,6 @@ exports.deletePost = (req, res, next) => {
                 }
                 res.status(200).json({ message: 'Post supprimé !' })
             })
-        })
+        }
     })
 };

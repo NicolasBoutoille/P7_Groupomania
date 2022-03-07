@@ -118,7 +118,7 @@ main {
 }
 .card {
   vertical-align: middle;
-  margin: auto;
+  margin: 5rem auto;
   width: 600px;
   background: white;
   border-radius: 10px;
@@ -164,13 +164,13 @@ main {
 }
 
 .button--disabled {
-  background: #737373;
-  color: white;
+  background: #666666;
+  color: #f2f2f2;
 }
 
 .button--disabled:hover {
   cursor: not-allowed;
-  background: #737373;
+  background: #666666;
 }
 
 .form-row {

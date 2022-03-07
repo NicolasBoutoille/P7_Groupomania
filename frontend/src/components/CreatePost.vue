@@ -48,7 +48,10 @@ export default {
     createPost() {
       let token = localStorage.getItem("token");
       let formData = new FormData();
-      formData.append("image", this.imagePublication);
+      if (this.imagePublication !== "") {
+        formData.append("image", this.imagePublication);
+      }
+      console.log(this.imagePublication);
       formData.append("content", this.textPublication);
       formData.append("idUsers", this.$store.state.user.idUsers);
       fetch("http://localhost:3000/api/post", {

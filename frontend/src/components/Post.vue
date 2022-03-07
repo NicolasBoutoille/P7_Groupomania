@@ -1,5 +1,5 @@
 <template>
-  <div class="post" v-for="post in posts" :key="post">
+  <div class="post" v-for="post in posts" :key="post.idPosts">
     <div class="post-header">
       <div class="post-header__picture">
         <div class="picture-container">
@@ -22,9 +22,8 @@
     <div class="post-line"></div>
     <div class="post-content">
       <p class="post-content__text">{{ post.content }}</p>
-      <div class="post-content__gif">
+      <div v-if="post.imageUrl !== null " class="post-content__gif">
         <img :src="post.imageUrl" alt="Photo de post.idUsers" />
-        <p></p>
       </div>
     </div>
     <Comment :post="post.idPosts"></Comment>
