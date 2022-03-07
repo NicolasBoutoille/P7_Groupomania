@@ -224,7 +224,7 @@ export default {
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 1rem;
-  margin: 2rem auto;
+  margin: 5rem auto;
 }
 .profil h1 {
   font-size: 2rem;
