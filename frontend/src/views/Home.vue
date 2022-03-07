@@ -6,7 +6,7 @@
   </header>
   <main>
     <div class="container">
-      <h1 @click="state()"> Click </h1>
+      <!-- <h1 @click="state()"> Click </h1> -->
       <CreatePost />
       <Post />
       <div></div>
@@ -57,7 +57,7 @@ export default {
   height: 1.5rem;
   padding: 0.3rem 0.5rem;
   color: white;
-  background: #c2595d;
+  background: #BE5059;
   font-weight: 500;
   border-radius: 0.6rem;
 }

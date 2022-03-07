@@ -36,7 +36,7 @@ a {
   margin: 2.5rem 3rem;
   padding: 0.5rem 1rem;
   color: white;
-  background: #c2595d;
+  background: #BE5059;
   font-weight: 500;
   border-radius: 10px;
 }

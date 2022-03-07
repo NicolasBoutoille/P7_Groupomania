@@ -22,7 +22,7 @@ export default {
 }
 
 body {
-  background-image: linear-gradient(62deg, #091F43 0%, #C2595D 200%);
+  background-image: linear-gradient(62deg, #091F43 0%, #BE5059 200%);
 }
 
 #app {

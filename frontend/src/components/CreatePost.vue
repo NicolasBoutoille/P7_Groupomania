@@ -5,6 +5,7 @@
       <input
         v-model="textPublication"
         class="post-create__text"
+        aria-label="post-content"
         type="text"
         placeholder="Quoi de neuf ?"
       />
@@ -13,6 +14,7 @@
       <input
         @change="processFile($event)"
         class="post-create__img"
+        aria-label="add-image"
         type="file"
         accept="image/png, image/jpeg, image/jpg, image/gif"
       />
@@ -20,6 +22,7 @@
         type="submit"
         value="Poster"
         class="post-create__btn"
+        id="post"
       />
     </div>
   </form>
@@ -57,7 +60,8 @@ export default {
       })
         .then((res) => res.json())
         .then((res) => {
-          return res;
+          this.$parent.forceRerender();
+          return res
         })
         .catch((error) => {
           return error;

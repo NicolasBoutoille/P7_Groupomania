@@ -29,10 +29,7 @@ img {
   margin: auto;
   width: 85%;
   height: 0;
-  border: 2px solid #c2595d;
+  border: 2px solid #BE5059;
 }
 
-@media screen and (max-width:767px) {
-
-}
 </style>

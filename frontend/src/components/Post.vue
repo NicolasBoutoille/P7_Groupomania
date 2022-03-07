@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     forceRerender() {
-      this.post += 1;
+      this.posts.reverse();
     },
     formatDate(input) {
       var datePart = input.match(/\d+/g),
@@ -71,8 +71,8 @@ export default {
         })
           .then((res) => res.json())
           .then((res) => {
+            this.forceRerender();
             console.log(res);
-            this.$forceRerender();
           })
           .catch((error) => {
             return error;
@@ -156,7 +156,7 @@ export default {
 
 .post-header__content p {
   font-weight: 300;
-  color: #aaaa;
+  color: black;
   font-size: 0.8rem;
 }
 

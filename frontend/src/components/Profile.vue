@@ -30,7 +30,7 @@
         class="profil-info__input"
         name="username"
         type="text"
-        label="username"
+        aria-label="username"
         :placeholder="user.username"
       />
       <input
@@ -38,7 +38,7 @@
         class="profil-info__input"
         name="email"
         type="email"
-        label="email"
+        aria-label="email"
         :placeholder="user.email"
       />
       <input
@@ -46,21 +46,21 @@
         class="profil-info__input"
         name="password"
         type="password"
-        label="password"
+        aria-label="password"
         placeholder="password"
       />
       <input
         @click="modifyProfil()"
         class="profil-info__btn"
         name="modify"
-        label="modify"
+        aria-label="modify"
         value="Modifier"
       />
       <input
         @click="confirmation()"
         class="profil-info__delete"
         name="delete"
-        label="delete"
+        aria-label="delete"
         value="Supprimer le compte"
       />
     </form>
@@ -190,7 +190,7 @@ export default {
   height: 1.5rem;
   padding: 0.3rem 0.5rem;
   color: white;
-  background: #c2595d;
+  background: #BE5059;
   font-weight: 500;
   border-radius: 0.6rem;
 }
@@ -291,7 +291,7 @@ export default {
   filter: brightness(0.85);
 }
 .profil-info__delete {
-  background: #c2595d;
+  background: #BE5059;
   color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }

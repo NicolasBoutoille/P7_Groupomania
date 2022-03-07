@@ -13,7 +13,7 @@
             v-model="email"
             class="form-row__input"
             type="email"
-            label="email"
+            aria-label="email"
             placeholder="Adresse mail"
           />
         </div>
@@ -22,7 +22,7 @@
             v-model="username"
             class="form-row__input"
             type="text"
-            label="text"
+            aria-label="text"
             placeholder="Nom d'utilisateur"
           />
         </div>
@@ -31,7 +31,7 @@
             v-model="password"
             class="form-row__input"
             type="password"
-            label="password"
+            aria-label="password"
             placeholder="Mot de passe"
           />
         </div>
@@ -152,7 +152,7 @@ export default {
 }
 
 .card__action {
-  color: #C2595D;
+  color: #BE5059;
   text-decoration: underline;
 }
 
@@ -166,13 +166,13 @@ export default {
 }
 
 .button--disabled {
-  background: #cecece;
+  background: #737373;
   color: white;
 }
 
 .button--disabled:hover {
   cursor: not-allowed;
-  background: #cecece;
+  background: #737373;
 }
 
 .form-row {

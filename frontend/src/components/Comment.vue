@@ -32,6 +32,7 @@
         v-model="commentaire"
         type="text"
         placeholder="Ajouter un commentaire..."
+        aria-label="add-comment"
       />
     </form>
   </div>
