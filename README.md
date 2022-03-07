@@ -22,7 +22,8 @@ Prérequis :
 * MySQL: https://www.mysql.com/fr/downloads/
 * VueJS: https://vuejs.org/guide/quick-start.html
 
-1. Cloner ce [repo](https://github.com/NicolasBoutoille/P7_Groupomania.git)
+1. Cloner le repository:
+> https://github.com/NicolasBoutoille/P7_Groupomania.git
 
 
 
