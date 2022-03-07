@@ -1,5 +1,5 @@
 # GROUPOMANIA (Projet final Openclassrooms)
-Créez un réseau social d'entreprise
+Créer un réseau social d'entreprise
 
 ## Compétences évaluées :
 
@@ -15,5 +15,14 @@ Créez un réseau social d'entreprise
 * VueJS
 
 ## Installation :
+
+Prérequis :
+* Git: https://git-scm.com/downloads
+* Node.js: https://nodejs.org/fr/download/
+* MySQL: https://www.mysql.com/fr/downloads/
+* VueJS: https://vuejs.org/guide/quick-start.html
+
+1. Cloner ce [repo](https://github.com/NicolasBoutoille/P7_Groupomania.git)
+
 
 
