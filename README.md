@@ -23,7 +23,8 @@ Prérequis :
 * VueJS: https://vuejs.org/guide/quick-start.html
 
 1. Cloner le repository:
-> https://github.com/NicolasBoutoille/P7_Groupomania.git
-
+```
+https://github.com/NicolasBoutoille/P7_Groupomania.git
+```
 
 
