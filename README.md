@@ -22,9 +22,38 @@ Prérequis :
 * MySQL: https://www.mysql.com/fr/downloads/
 * VueJS: https://vuejs.org/guide/quick-start.html
 
-1. Cloner le repository:
+1. Cloner le repository :
 ```
-https://github.com/NicolasBoutoille/P7_Groupomania.git
+git clone https://github.com/NicolasBoutoille/P7_Groupomania.git
 ```
+
+### Backend :
+
+2. Dans le dossier backend/config, créer un fichier .env contenant :
+```
+PORT= numéro de port pour le serveur backend
+DB_HOST=localhost
+DB_USER= username de votre base de données
+DB_PASSWORD= mot de passe de votre base de données
+DB_NAME=groupomania
+TOKEN= clé secrète token
+```
+
+3. Créer un dossier images dans le dossier backend
+
+4. Ouvrir un terminal dans le dossier backend puis :
+```
+npm install
+npm start
+```
+
+### Frontend :
+
+5. Ouvrir un terminal dans le dossier frontend :
+```
+npm install
+npm run serve
+```
+
 
 
