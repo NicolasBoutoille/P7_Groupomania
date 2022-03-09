@@ -1,5 +1,5 @@
 <template>
-  <Header/>
+  <Header />
   <main>
     <div class="card">
       <h1 class="card__title">Inscription</h1>
@@ -53,12 +53,12 @@
       </form>
     </div>
   </main>
-  <Footer/>
+  <Footer />
 </template>
 
 <script>
-import Header from '../components/Header.vue'
-import Footer from '../components/Footer.vue'
+import Header from "../components/Header.vue";
+import Footer from "../components/Footer.vue";
 
 export default {
   name: "Signup",
@@ -120,28 +120,25 @@ export default {
 
 <style scoped>
 main {
-  margin: 5rem auto;
+  display: flex;
 }
 .card {
-  margin: 1rem;
+  margin: 5rem auto;
   width: 600px;
   background: white;
   border-radius: 10px;
   padding: 32px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
-
 .card__title {
   text-align: center;
   font-weight: 800;
 }
-
 .card__subtitle {
   text-align: center;
   color: #666;
   font-weight: 500;
 }
-
 .button {
   background-color: #091f43;
   color: white;
@@ -153,38 +150,31 @@ main {
   padding: 16px;
   transition: 0.4s filter;
 }
-
 .card__action {
-  color: #BE5059;
+  color: #be5059;
   text-decoration: underline;
 }
-
 .card__action:hover {
   cursor: pointer;
 }
-
 .button:hover {
   cursor: pointer;
   filter: brightness(0.85);
 }
-
 .button--disabled {
   background: #666666;
   color: #f2f2f2;
 }
-
 .button--disabled:hover {
   cursor: not-allowed;
   background: #666666;
 }
-
 .form-row {
   display: flex;
   margin: 16px 0px;
   gap: 16px;
   flex-wrap: wrap;
 }
-
 .form-row__input {
   padding: 8px;
   border: none;
@@ -196,23 +186,19 @@ main {
   min-width: 100px;
   color: black;
 }
-
 .form-row__input::placeholder {
   color: #666666;
 }
-
 .form-error {
   text-align: center;
   color: red;
   font-weight: 500;
 }
-
 .form-success {
   text-align: center;
   color: #1d9967;
   font-weight: 500;
 }
-
 .form-success__btn {
   text-decoration: underline;
   cursor: pointer;

@@ -1,8 +1,16 @@
 <template>
   <form class="post-create" @submit.prevent="createPost()">
     <div class="post-create__top">
-      <img v-if="user.profilePicture !== null" :src="user.profilePicture" alt="Photo de profil" />
-      <img v-if="user.profilePicture == null" src="../assets/blank-profile.png" alt="Photo de profil"/>
+      <img
+        v-if="user.profilePicture !== null"
+        :src="user.profilePicture"
+        alt="Photo de profil"
+      />
+      <img
+        v-if="user.profilePicture == null"
+        src="../assets/blank-profile.png"
+        alt="Photo de profil"
+      />
       <input
         v-model="textPublication"
         class="post-create__text"
@@ -19,18 +27,13 @@
         type="file"
         accept="image/png, image/jpeg, image/jpg, image/gif"
       />
-      <input
-        type="submit"
-        value="Poster"
-        class="post-create__btn"
-        id="post"
-      />
+      <input type="submit" value="Poster" class="post-create__btn" id="post" />
     </div>
   </form>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 export default {
   name: "CreatePost",
   data() {
@@ -40,7 +43,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(["user"]),
   },
   methods: {
     processFile(event) {
@@ -53,7 +56,6 @@ export default {
       if (this.imagePublication !== "") {
         formData.append("image", this.imagePublication);
       }
-      console.log(this.imagePublication);
       formData.append("content", this.textPublication);
       formData.append("idUsers", userId);
       fetch("http://localhost:3000/api/post", {
@@ -66,7 +68,7 @@ export default {
         .then((res) => res.json())
         .then((res) => {
           this.$router.go();
-          return res
+          return res;
         })
         .catch((error) => {
           return error;
@@ -86,11 +88,9 @@ export default {
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
-
 .post-create__top {
   display: flex;
 }
-
 .post-create__top img {
   height: 36px;
   width: 36px;
@@ -99,7 +99,6 @@ export default {
   overflow: hidden;
   margin-right: 1rem;
 }
-
 .post-create__top input {
   display: flex;
   justify-content: center;
@@ -109,13 +108,11 @@ export default {
   border-radius: 15px;
   padding: 0 0.8rem;
 }
-
 .post-create__bottom {
   display: flex;
   justify-content: space-between;
   margin-top: 1rem;
 }
-
 .post-create__btn {
   padding: 0 1rem;
   border: none;
@@ -124,7 +121,6 @@ export default {
   color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
-
 .post-create__btn:hover {
   filter: brightness(0.85);
   cursor: pointer;

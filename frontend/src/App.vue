@@ -3,12 +3,10 @@
 </template>
 
 <script>
-
 export default {
-  name: 'App',
-  components: {
-  }
-}
+  name: "App",
+  components: {},
+};
 </script>
 
 <style>
@@ -22,7 +20,7 @@ export default {
 }
 
 body {
-  background-image: linear-gradient(62deg, #091F43 0%, #BE5059 200%);
+  background-image: linear-gradient(62deg, #091f43 0%, #be5059 200%);
 }
 
 #app {

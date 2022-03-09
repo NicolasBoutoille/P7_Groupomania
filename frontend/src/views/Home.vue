@@ -1,8 +1,12 @@
 <template>
   <Header />
   <header>
-    <font-awesome-icon icon="arrow-right-from-bracket" class="logout" @click="logout()"/>
-    <font-awesome-icon icon="user" class="user" @click="profile()"/>
+    <font-awesome-icon
+      icon="arrow-right-from-bracket"
+      class="logout"
+      @click="logout()"
+    />
+    <font-awesome-icon icon="user" class="user" @click="profile()" />
   </header>
   <main>
     <div class="container">
@@ -15,8 +19,8 @@
 </template>
 
 <script>
-import Header from '../components/Header.vue'
-import Footer from '../components/Footer.vue'
+import Header from "../components/Header.vue";
+import Footer from "../components/Footer.vue";
 import CreatePost from "../components/CreatePost.vue";
 import Post from "../components/Post.vue";
 export default {
@@ -34,19 +38,18 @@ export default {
     logout() {
       localStorage.removeItem("token");
       localStorage.removeItem("userId");
-      this.$store.commit('resetUserInfos');
+      this.$store.commit("resetUserInfos");
       this.$router.push("/");
     },
     profile() {
       this.$router.push("/profile");
-    }
+    },
   },
   mounted() {
-    // Ajout des informations de l'utilisateur dans le store
     let userId = localStorage.getItem("userId");
     let token = localStorage.getItem("token");
-    this.$store.dispatch('getUser', {userId, token})
-  }
+    this.$store.dispatch("getUser", { userId, token });
+  },
 };
 </script>
 
@@ -58,16 +61,14 @@ export default {
   height: 1.5rem;
   padding: 0.3rem 0.5rem;
   color: white;
-  background: #BE5059;
+  background: #be5059;
   font-weight: 500;
   border-radius: 0.6rem;
 }
-
 .logout:hover {
   cursor: pointer;
   filter: brightness(0.85);
 }
-
 .user {
   position: absolute;
   top: 2rem;
@@ -77,12 +78,10 @@ export default {
   color: white;
   font-weight: 500;
 }
-
 .user:hover {
   cursor: pointer;
   filter: brightness(0.85);
 }
-
 .container {
   display: flex;
   flex-direction: column;

@@ -79,9 +79,6 @@ export default {
           console.log(error);
         });
     },
-    test() {
-      console.log(this.user.idUsers);
-    },
     createComment() {
       let Token = localStorage.getItem("token");
       let userId = this.user.idUsers;
@@ -149,7 +146,6 @@ export default {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   cursor: pointer;
 }
-
 .comment-display:hover {
   filter: brightness(0.85);
 }
@@ -189,19 +185,16 @@ export default {
   flex-direction: column;
   justify-content: space-evenly;
 }
-
 .comment-list__content h3 {
   font-size: 0.9rem;
 }
 .comment-list__content p {
   font-size: 0.8rem;
 }
-
 .comment-add {
   display: flex;
   justify-content: center;
 }
-
 .comment-add input {
   width: 85%;
   margin: 0.5rem auto 1rem auto;

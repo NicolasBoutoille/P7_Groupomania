@@ -12,8 +12,18 @@
     <h1>{{ user.username }}</h1>
     <div class="profil-image">
       <label for="image">
-        <img v-if="user.profilePicture !== null" class="image" :src="user.profilePicture" alt="Photo de profil" />
-        <img v-if="user.profilePicture == null" class="image" src="../assets/blank-profile.png" alt="Photo de profil" />
+        <img
+          v-if="user.profilePicture !== null"
+          class="image"
+          :src="user.profilePicture"
+          alt="Photo de profil"
+        />
+        <img
+          v-if="user.profilePicture == null"
+          class="image"
+          src="../assets/blank-profile.png"
+          alt="Photo de profil"
+        />
         <font-awesome-icon icon="image" class="add-image" />
       </label>
       <input
@@ -91,7 +101,11 @@ export default {
   computed: {
     ...mapState(["user"]),
     validatedFields() {
-      if (this.newUsername != null && this.newEmail != null && this.newPassword != null) {
+      if (
+        this.newUsername != null &&
+        this.newEmail != null &&
+        this.newPassword != null
+      ) {
         return true;
       } else {
         return false;
@@ -101,7 +115,7 @@ export default {
   methods: {
     logout() {
       localStorage.removeItem("token");
-      localStorage.removeItem("userId")
+      localStorage.removeItem("userId");
       this.$store.commit("resetUserInfos");
       this.$router.push("/");
     },
@@ -124,7 +138,7 @@ export default {
         })
           .then((res) => res.json())
           .then((res) => {
-            this.$store.dispatch('getUser', {userId, token});
+            this.$store.dispatch("getUser", { userId, token });
             return res;
           })
           .catch((error) => {
@@ -152,7 +166,7 @@ export default {
           .then((res) => res.json())
           .then((res) => {
             console.log(res);
-            this.$store.dispatch('getUser', {userId, token});
+            this.$store.dispatch("getUser", { userId, token });
             this.newUsername = "";
             this.newEmail = "";
             this.newPassword = "";
@@ -168,7 +182,7 @@ export default {
         event.preventDefault();
         this.deleteProfil();
         this.logout();
-       }
+      }
     },
     deleteProfil() {
       let userId = this.user.idUsers;
@@ -201,16 +215,14 @@ export default {
   height: 1.5rem;
   padding: 0.3rem 0.5rem;
   color: white;
-  background: #BE5059;
+  background: #be5059;
   font-weight: 500;
   border-radius: 0.6rem;
 }
-
 .logout:hover {
   cursor: pointer;
   filter: brightness(0.85);
 }
-
 .home {
   position: absolute;
   top: 2rem;
@@ -220,7 +232,6 @@ export default {
   color: white;
   font-weight: 500;
 }
-
 .home:hover {
   cursor: pointer;
   filter: brightness(0.85);
@@ -302,7 +313,7 @@ export default {
   filter: brightness(0.85);
 }
 .profil-info__delete {
-  background: #BE5059;
+  background: #be5059;
   color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }

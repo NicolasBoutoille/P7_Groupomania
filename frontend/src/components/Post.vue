@@ -22,7 +22,7 @@
     <div class="post-line"></div>
     <div class="post-content">
       <p class="post-content__text">{{ post.content }}</p>
-      <div v-if="post.imageUrl !== null " class="post-content__gif">
+      <div v-if="post.imageUrl !== null" class="post-content__gif">
         <img :src="post.imageUrl" alt="Photo de post.idUsers" />
       </div>
     </div>
@@ -118,17 +118,14 @@ export default {
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
-
 .post-header {
   display: flex;
   padding: 0.5rem;
   position: relative;
 }
-
 .post-header:hover .post-header__delete {
   visibility: visible;
 }
-
 .picture-container {
   height: 48px;
   width: 48px;
@@ -136,29 +133,24 @@ export default {
   background: #cecece;
   overflow: hidden;
 }
-
 .picture-container img {
   max-width: 100%;
   max-height: 100%;
 }
-
 .post-header__content {
   margin: 0 1rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 }
-
 .post-header__content h2 {
   font-size: 1rem;
 }
-
 .post-header__content p {
   font-weight: 300;
   color: black;
   font-size: 0.8rem;
 }
-
 .post-header__delete {
   position: absolute;
   right: 1rem;
@@ -166,18 +158,15 @@ export default {
   visibility: hidden;
   cursor: pointer;
 }
-
 .post-line {
   width: 100%;
   height: 0;
   border: 0.5px solid #aaaa;
 }
-
 .post-content {
   padding: 1rem 1rem 0 1rem;
   overflow: hidden;
 }
-
 .post-content__gif {
   display: flex;
   justify-content: center;
@@ -185,7 +174,6 @@ export default {
   width: 100%;
   overflow: hidden;
 }
-
 .post-content__gif img {
   max-width: 650px;
   width: 100%;
