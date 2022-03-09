@@ -27,9 +27,14 @@ Prérequis :
 git clone https://github.com/NicolasBoutoille/P7_Groupomania.git
 ```
 
+2. Importer la base de données située à la racine du projet:
+```
+mysql -u root -p groupomania < dump.sql
+```
+
 ### Backend :
 
-2. Dans le dossier backend/config, créer un fichier .env contenant :
+3. Dans le dossier backend/config, créer un fichier .env contenant :
 ```
 PORT= numéro de port pour le serveur backend
 DB_HOST=localhost
@@ -39,9 +44,9 @@ DB_NAME=groupomania
 TOKEN= clé secrète token
 ```
 
-3. Créer un dossier images dans le dossier backend
+4. Créer un dossier images dans le dossier backend
 
-4. Ouvrir un terminal dans le dossier backend puis :
+5. Ouvrir un terminal dans le dossier backend puis :
 ```
 npm install
 npm start
@@ -49,7 +54,7 @@ npm start
 
 ### Frontend :
 
-5. Ouvrir un terminal dans le dossier frontend :
+6. Ouvrir un terminal dans le dossier frontend :
 ```
 npm install
 npm run serve
