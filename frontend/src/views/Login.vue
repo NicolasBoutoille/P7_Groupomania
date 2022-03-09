@@ -191,7 +191,7 @@ main {
 }
 
 .form-row__input::placeholder {
-  color: #aaaaaa;
+  color: #666666;
 }
 
 .form-row__error {

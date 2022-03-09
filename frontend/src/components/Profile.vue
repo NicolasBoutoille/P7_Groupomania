@@ -153,6 +153,9 @@ export default {
           .then((res) => {
             console.log(res);
             this.$store.dispatch('getUser', {userId, token});
+            this.newUsername = "";
+            this.newEmail = "";
+            this.newPassword = "";
           })
           .catch((error) => {
             return error;
