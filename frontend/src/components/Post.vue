@@ -47,9 +47,6 @@ export default {
     ...mapState(["user"]),
   },
   methods: {
-    forceRerender() {
-      this.posts.reverse();
-    },
     formatDate(input) {
       var datePart = input.match(/\d+/g),
         year = datePart[0].substring(2),
@@ -70,7 +67,10 @@ export default {
         })
           .then((res) => res.json())
           .then((res) => {
-            this.forceRerender();
+            let postIndex = this.posts.findIndex(
+              (item) => item.idPosts === postId
+            );
+            this.posts.splice(postIndex, 1);
             console.log(res);
           })
           .catch((error) => {
@@ -183,12 +183,11 @@ export default {
   justify-content: center;
   margin: 1rem auto;
   width: 100%;
-  border-radius: 5%;
   overflow: hidden;
 }
 
 .post-content__gif img {
-  max-width: 600px;
+  max-width: 650px;
   width: 100%;
 }
 </style>

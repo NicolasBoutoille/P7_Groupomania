@@ -1,5 +1,4 @@
 import { createStore } from 'vuex'
-import createPersistedState from 'vuex-persistedstate'
 
 export default createStore({
   state() {
@@ -10,17 +9,13 @@ export default createStore({
         username: "",
         profilePicture: "",
         isAdmin: ""
-      }
+      },
     };
   },
-  plugins: [createPersistedState({
-    paths: ["user"]
-  })
-],
   getters: {
   },
   mutations: {
-    COLLECT_USER_INFOS(state, { userId, token}) {
+    collectUserInfos(state, { userId, token}) {
       fetch("http://localhost:3000/api/user/" + userId, {
         method: "GET",
         headers: {
@@ -40,17 +35,17 @@ export default createStore({
         return error;
       });
     },
-    RESET_USER_INFOS(state) {
+    resetUserInfos(state) {
       state.user.idUsers = "",
       state.user.email = "",
       state.user.username = "",
       state.user.profilePicture = "",
       state.user.isAdmin = ""
-    }
+    },
   },
   actions: {
     getUser(context, { userId, token}) {
-      context.commit('COLLECT_USER_INFOS', { userId, token})
+      context.commit('collectUserInfos', { userId, token})
     }
   },
   modules: {

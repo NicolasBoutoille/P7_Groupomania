@@ -1,7 +1,8 @@
 <template>
   <form class="post-create" @submit.prevent="createPost()">
     <div class="post-create__top">
-      <img :src="user.profilePicture" alt="Photo de profil" />
+      <img v-if="user.profilePicture !== null" :src="user.profilePicture" alt="Photo de profil" />
+      <img v-if="user.profilePicture == null" src="../assets/blank-profile.png" alt="Photo de profil"/>
       <input
         v-model="textPublication"
         class="post-create__text"
@@ -47,13 +48,14 @@ export default {
     },
     createPost() {
       let token = localStorage.getItem("token");
+      let userId = this.$store.state.user.idUsers;
       let formData = new FormData();
       if (this.imagePublication !== "") {
         formData.append("image", this.imagePublication);
       }
       console.log(this.imagePublication);
       formData.append("content", this.textPublication);
-      formData.append("idUsers", this.$store.state.user.idUsers);
+      formData.append("idUsers", userId);
       fetch("http://localhost:3000/api/post", {
         method: "POST",
         headers: {
@@ -63,7 +65,7 @@ export default {
       })
         .then((res) => res.json())
         .then((res) => {
-          this.$parent.forceRerender();
+          this.$router.go();
           return res
         })
         .catch((error) => {

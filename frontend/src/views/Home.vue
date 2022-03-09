@@ -6,7 +6,6 @@
   </header>
   <main>
     <div class="container">
-      <!-- <h1 @click="state()"> Click </h1> -->
       <CreatePost />
       <Post />
       <div></div>
@@ -32,20 +31,22 @@ export default {
     return {};
   },
   methods: {
-    state(){
-      console.log(this.$store.state.user)
-    },
     logout() {
       localStorage.removeItem("token");
-      // localStorage.removeItem("userId");
-      this.$store.commit('RESET_USER_INFOS');
-      console.log(this.$store.state.user);
+      localStorage.removeItem("userId");
+      this.$store.commit('resetUserInfos');
       this.$router.push("/");
     },
     profile() {
       this.$router.push("/profile");
     }
   },
+  mounted() {
+    // Ajout des informations de l'utilisateur dans le store
+    let userId = localStorage.getItem("userId");
+    let token = localStorage.getItem("token");
+    this.$store.dispatch('getUser', {userId, token})
+  }
 };
 </script>
 

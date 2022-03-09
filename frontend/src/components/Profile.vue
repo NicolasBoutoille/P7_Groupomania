@@ -12,7 +12,8 @@
     <h1>{{ user.username }}</h1>
     <div class="profil-image">
       <label for="image">
-        <img class="image" :src="user.profilePicture" alt="Photo de profil" />
+        <img v-if="user.profilePicture !== null" class="image" :src="user.profilePicture" alt="Photo de profil" />
+        <img v-if="user.profilePicture == null" class="image" src="../assets/blank-profile.png" alt="Photo de profil" />
         <font-awesome-icon icon="image" class="add-image" />
       </label>
       <input
@@ -55,6 +56,7 @@
         name="modify"
         aria-label="modify"
         value="Modifier"
+        v-if="validatedFields"
       />
       <input
         @click="confirmation()"
@@ -88,13 +90,19 @@ export default {
   },
   computed: {
     ...mapState(["user"]),
+    validatedFields() {
+      if (this.newUsername != null && this.newEmail != null && this.newPassword != null) {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
   methods: {
     logout() {
       localStorage.removeItem("token");
-      // localStorage.removeItem("userId");
-      this.$store.commit("RESET_USER_INFOS");
-      console.log(this.$store.state.user);
+      localStorage.removeItem("userId")
+      this.$store.commit("resetUserInfos");
       this.$router.push("/");
     },
     home() {
